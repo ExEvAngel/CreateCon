@@ -10,8 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -19,15 +21,14 @@ import android.widget.TextView;
  */
 
 public class SenderDetailFragment extends Fragment {
-    EditText accId, custRef, sendName, sendAddr, sendCity,sendPostcode,
-    sendCountry, sendCoName, sendCoNo;
+    EditText sendAcc, custRef, sendName, sendAddr, sendCity,sendPostcode,sendCoName, sendCoNo;
 
     String payterm, custref;
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
 
     Button complete;
+    Spinner sendCountry;
     OnCompleteSendDetails onCompleteSendDetails;
-    Consignment con;
     AlertDialog.Builder builder;
     @Override
     public void onAttach(Context context) {
@@ -60,18 +61,28 @@ public class SenderDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sender_detail_fragment_layout,container,false);
 
-        accId = (EditText) view.findViewById(R.id.acc_id);
+        sendCountry = (Spinner) view.findViewById(R.id.sender_country_spinner);
+            // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
+                R.array.countries_array, android.R.layout.simple_spinner_item);
+            // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            // Apply the adapter to the spinner
+        sendCountry.setAdapter(adapter);
+        int spinnerPosition = adapter.getPosition("Australia");
+        sendCountry.setSelection(spinnerPosition);
+
+        sendAcc = (EditText) view.findViewById(R.id.send_acc);
         custRef = (EditText) view.findViewById(R.id.cust_ref);
         sendName = (EditText) view.findViewById(R.id.send_name);
         sendAddr = (EditText) view.findViewById(R.id.send_address);
         sendCity = (EditText) view.findViewById(R.id.send_city);
         sendPostcode = (EditText) view.findViewById(R.id.send_postcode);
-        sendCountry = (EditText) view.findViewById(R.id.send_country);
         sendCoName = (EditText) view.findViewById(R.id.send_contact_name);
         sendCoNo = (EditText) view.findViewById(R.id.send_contact_no);
 
 
-        builder = new AlertDialog.Builder(getActivity().getApplicationContext());
+        builder = new AlertDialog.Builder(getActivity());
 
         complete = (Button) view.findViewById(R.id.sender_complete);
         complete.setOnClickListener(new Button.OnClickListener(){
@@ -79,21 +90,21 @@ public class SenderDetailFragment extends Fragment {
             public void onClick(View v) {
 
 
-                sendacc = accId.getText().toString();
+                sendacc = sendAcc.getText().toString();
                 custref = custRef.getText().toString();
                 sendname = sendName.getText().toString();
                 sendaddress = sendAddr.getText().toString();
                 sendcity = sendCity.getText().toString();
                 sendpostcode = sendPostcode.getText().toString();
-                sendcountry = sendCountry.getText().toString();
+                sendcountry = sendCountry.getSelectedItem().toString();
                 sendcontactname = sendCoName.getText().toString();
                 sendcontactno = sendCoNo.getText().toString();
 
-                if (sendname.equals("")||sendaddress.equals("")||sendcity.equals("")||sendpostcode.equals("")||sendcity.equals("")||
-                    sendpostcode.equals("")||sendcountry.equals("")){
-                    builder.setTitle("Form Incomplete");
-                    builder.setMessage("Please complete the necessary fields");
+                if (sendname.equals("")||sendaddress.equals("")||sendcity.equals("")||sendpostcode.equals("")||sendcountry.equals("")){
+                    builder.setTitle("Incomplete Fields");
+                    builder.setMessage("Please fill in all the required fields");
                     builder.show();
+
                 } else{
                     onCompleteSendDetails.sendAccId(sendacc);
                     onCompleteSendDetails.customerReference(custref);
@@ -106,7 +117,6 @@ public class SenderDetailFragment extends Fragment {
                     onCompleteSendDetails.sendCoNo(sendcontactno);
                     onCompleteSendDetails.getReceiverDetails();
                 }
-
 
             }
         });

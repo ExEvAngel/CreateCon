@@ -6,6 +6,12 @@
     <LinearLayout
         android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rec_acc"
+            android:hint="@string/acc"
+            />
 
         <EditText
             android:layout_width="match_parent"
@@ -33,12 +39,11 @@
             android:id="@+id/rec_postcode"
             android:hint="@string/postcode"
             />
-        <EditText
+        <Spinner
+            android:id="@+id/rec_country_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rec_country"
-            android:hint="@string/country"
-           />
+            android:layout_height="wrap_content" />
+        />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

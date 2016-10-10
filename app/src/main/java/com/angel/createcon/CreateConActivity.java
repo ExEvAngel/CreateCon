@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.Date;
 
-public class CreateConActivity extends AppCompatActivity implements SenderDetailFragment.OnCompleteSendDetails {
+public class CreateConActivity extends AppCompatActivity implements SenderDetailFragment.OnCompleteSendDetails, ReceiverDetailFragment.OnCompleteReceiverDetails {
     int id, conid, nopiece;
     double value;
     String payterm, custref, service, opt, description,currency, userid;
@@ -22,7 +22,6 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
 
     TextView textView;
     Button btn;
-    FragmentTransaction fragmentTransaction;
     Consignment consignment;
 
 
@@ -35,9 +34,8 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
 
         SenderDetailFragment senderDetailFragment = new SenderDetailFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container, senderDetailFragment);
-        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -94,9 +92,63 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     public void getReceiverDetails() {
 
         ReceiverDetailFragment receiverDetailFragment = new ReceiverDetailFragment();
-        fragmentTransaction.add(R.id.fragment_container, receiverDetailFragment);
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, receiverDetailFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
+    }
+
+    @Override
+    public void recAccId(String id) {
+        this.recacc=id;
+    }
+
+    @Override
+    public void recName(String name) {
+        this.recname=name;
+    }
+
+    @Override
+    public void recAddr(String addr) {
+        this.recaddress=addr;
+    }
+
+    @Override
+    public void recCity(String city) {
+        this.reccity=city;
+    }
+
+    @Override
+    public void recPostCode(String postcode) {
+        this.recpostcode=postcode;
+    }
+
+    @Override
+    public void recCountry(String country) {
+        this.reccountry=country;
+    }
+
+    @Override
+    public void recCoName(String coName) {
+        this.reccontactname=coName;
+    }
+
+    @Override
+    public void recCoNo(String coNo) {
+        this.reccontactno=coNo;
+    }
+
+    @Override
+    public void getShipmentDetails() {
+
+        textView.setText(sendname+recname+sendcountry);
+        ShipmentDetailFragment shipmentDetailFragment = new ShipmentDetailFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, shipmentDetailFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 }

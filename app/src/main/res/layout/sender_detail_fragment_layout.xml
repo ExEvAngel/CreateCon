@@ -9,7 +9,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/acc_id"
+            android:id="@+id/send_acc"
             android:hint="@string/acc"
             android:lines="1"/>
         <EditText
@@ -44,11 +44,10 @@
             android:id="@+id/send_postcode"
             android:hint="@string/postcode"
             />
-        <EditText
+        <Spinner
+            android:id="@+id/sender_country_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/send_country"
-            android:hint="@string/country"
+            android:layout_height="wrap_content" />
             />
         <EditText
             android:layout_width="match_parent"
