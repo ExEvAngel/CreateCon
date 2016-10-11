@@ -46,6 +46,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/description"
             android:hint="@string/description"
+            android:inputType="textLongMessage"
+            android:maxLength="92"
             />
         <EditText
             android:layout_weight="1"
@@ -53,12 +55,16 @@
             android:layout_height="wrap_content"
             android:id="@+id/no_piece"
             android:hint="@string/noPiece"
+            android:inputType="number"
+            android:maxLength="2"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/value"
             android:hint="@string/value"
+            android:inputType="numberDecimal"
+            android:maxLength="9"
             />
         <Spinner
             android:id="@+id/currency"
@@ -69,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/submit"
-            android:id="@+id/submit_form"
+            android:id="@+id/submit_con"
             />
 
 

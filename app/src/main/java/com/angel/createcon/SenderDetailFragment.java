@@ -21,7 +21,9 @@ import android.widget.TextView;
  */
 
 public class SenderDetailFragment extends Fragment {
-    EditText sendAcc, custRef, sendName, sendAddr, sendCity,sendPostcode,sendCoName, sendCoNo;
+    EditText conId, sendAcc, custRef, sendName, sendAddr, sendCity,sendPostcode,sendCoName, sendCoNo;
+
+    int conid;
 
     String payterm, custref;
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
@@ -42,6 +44,7 @@ public class SenderDetailFragment extends Fragment {
     }
 
     public interface OnCompleteSendDetails{
+        public void sendConId(int conid);
         public void sendAccId (String id);
         public void customerReference (String ref);
         public void sendName(String name);
@@ -71,7 +74,7 @@ public class SenderDetailFragment extends Fragment {
         sendCountry.setAdapter(adapter);
         int spinnerPosition = adapter.getPosition("Australia");
         sendCountry.setSelection(spinnerPosition);
-
+        conId = (EditText) view.findViewById(R.id.con_id);
         sendAcc = (EditText) view.findViewById(R.id.send_acc);
         custRef = (EditText) view.findViewById(R.id.cust_ref);
         sendName = (EditText) view.findViewById(R.id.send_name);
@@ -89,7 +92,8 @@ public class SenderDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-
+                String con_id_string = conId.getText().toString();
+                conid = Integer.parseInt(con_id_string);
                 sendacc = sendAcc.getText().toString();
                 custref = custRef.getText().toString();
                 sendname = sendName.getText().toString();
@@ -100,12 +104,12 @@ public class SenderDetailFragment extends Fragment {
                 sendcontactname = sendCoName.getText().toString();
                 sendcontactno = sendCoNo.getText().toString();
 
-                if (sendname.equals("")||sendaddress.equals("")||sendcity.equals("")||sendpostcode.equals("")||sendcountry.equals("")){
+                if (con_id_string.equals("")||sendname.equals("")||sendaddress.equals("")||sendcity.equals("")||sendpostcode.equals("")||sendcountry.equals("")){
                     builder.setTitle("Incomplete Fields");
                     builder.setMessage("Please fill in all the required fields");
                     builder.show();
-
                 } else{
+                    onCompleteSendDetails.sendConId(conid);
                     onCompleteSendDetails.sendAccId(sendacc);
                     onCompleteSendDetails.customerReference(custref);
                     onCompleteSendDetails.sendName(sendname);

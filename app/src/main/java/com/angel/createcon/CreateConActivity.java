@@ -4,16 +4,21 @@ package com.angel.createcon;
 import android.app.AlertDialog;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.math.BigDecimal;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
-public class CreateConActivity extends AppCompatActivity implements SenderDetailFragment.OnCompleteSendDetails, ReceiverDetailFragment.OnCompleteReceiverDetails {
-    int id, conid, nopiece;
-    double value;
+public class CreateConActivity extends AppCompatActivity implements SenderDetailFragment.OnCompleteSendDetails, ReceiverDetailFragment.OnCompleteReceiverDetails,ShipmentDetailFragment.OnCompleteShipmentDetails {
+    int nopiece,conid;
+    String value;
     String payterm, custref, service, opt, description,currency, userid;
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
     String recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno;
@@ -41,6 +46,11 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
 
 
     @Override
+    public void sendConId(int conid) {
+        this.conid=conid;
+    }
+
+    @Override
     public void sendAccId(String id) {
         this.sendacc=id;
 
@@ -54,8 +64,6 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     @Override
     public void sendName(String name) {
         this.sendname=name;
-        textView.setText(sendname);
-
     }
 
     @Override
@@ -150,5 +158,87 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
         fragmentTransaction.replace(R.id.fragment_container, shipmentDetailFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void shipNoPiece(int piece) {
+        this.nopiece = piece;
+    }
+
+    @Override
+    public void shipPayTerm(String payTerm) {
+        this.payterm=payTerm;
+    }
+
+    @Override
+    public void shipService(String service) {
+        this.service=service;
+    }
+
+    @Override
+    public void shipOpt(String opt) {
+        this.opt=opt;
+    }
+
+    @Override
+    public void shipDescription(String description) {
+        this.description=description;
+    }
+
+    @Override
+    public void shipCurrency(String currency) {
+        this.currency=currency;
+    }
+
+    @Override
+    public void shipValue(String value) {
+        this.value=value;
+    }
+
+    @Override
+    public void shipDg(boolean dg) {
+        this.dg=dg;
+    }
+
+    @Override
+    public void submit() {
+
+        Date today = Calendar.getInstance().getTime();
+        Consignment con = new Consignment(null,conid, payterm, custref,
+                sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno,
+                recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno,
+                service, opt, dg, nopiece, description,  value, currency, userid, false,today );
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra("NEW_CON",con);
+        startActivity(intent);
+        /*con.setId(null);
+        con.setConid(conid);
+        con.setNopiece(nopiece);
+        con.setValue(value);
+        con.setPayterm(payterm);
+        con.setCustref(custref);
+        con.setService(service);
+        con.setOpt(opt);
+        con.setDescription(description);
+        con.setCurrency(currency);
+        con.setUserid(null);
+
+        con.setSendacc(sendacc);
+        con.setSendname(sendname);
+        con.setSendaddress(sendaddress);
+        con.setSendcity(sendcity);
+        con.setSendpostcode(sendpostcode);
+        con.setSendcountry(sendcountry);
+        con.setSendcontactname(sendcontactname);
+        con.setSendcontactno(sendcontactno);
+        con.setRecacc(recacc);
+        con.setRecname(recname);
+        con.setRecaddress(recaddress);
+        con.setReccity(reccity);
+        con.setRecpostcode(recpostcode);
+        con.setReccountry(reccountry);
+        con.setReccontactname(reccontactname);
+        con.setReccontactno(reccontactno);
+        */
     }
 }

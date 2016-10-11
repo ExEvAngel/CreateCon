@@ -1,20 +1,21 @@
 package com.angel.createcon;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.util.Currency;
-import java.util.Set;
-
-import static java.util.Currency.getAvailableCurrencies;
+import java.math.BigDecimal;
 
 /**
  * Created by Angel on 10/10/2016.
@@ -22,12 +23,40 @@ import static java.util.Currency.getAvailableCurrencies;
 
 public class ShipmentDetailFragment extends Fragment{
     int nopiece;
-    double value;
     String payterm, service, opt, description,currency;
     boolean dg;
-    TextView noPiece, Value;
+    String value;
+
+    TextView noPiece, Value, desc;
     Spinner payTerm, Service, option, Currency;
     RadioGroup dgGroup;
+    AlertDialog.Builder builder;
+
+    Button submit;
+
+    OnCompleteShipmentDetails onCompleteShipmentDetails;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            onCompleteShipmentDetails = (OnCompleteShipmentDetails) context;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public interface OnCompleteShipmentDetails{
+        public void shipNoPiece(int piece);
+        public void shipPayTerm(String payTerm);
+        public void shipService(String service);
+        public void shipOpt(String opt);
+        public void shipDescription(String description);
+        public void shipCurrency(String currency);
+        public void shipValue(String value);
+        public void shipDg(boolean dg);
+        public void submit();
+    }
 
     @Nullable
     @Override
@@ -35,6 +64,7 @@ public class ShipmentDetailFragment extends Fragment{
         View view = inflater.inflate(R.layout.shipment_detail_fragment_layout,container,false);
 
         noPiece = (TextView) view.findViewById(R.id.no_piece);
+        desc = (TextView) view.findViewById(R.id.description);
         Value = (TextView) view.findViewById(R.id.value);
 
         payTerm = (Spinner) view.findViewById(R.id.pay_term);
@@ -74,7 +104,42 @@ public class ShipmentDetailFragment extends Fragment{
                 }
             }
         });
+        dgGroup.check(R.id.dg_no);
+        dg = false;
 
+        builder = new AlertDialog.Builder(getActivity());
+
+        submit = (Button) view.findViewById(R.id.submit_con);
+        submit.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                description = desc.getText().toString();
+                String nopiece_string = noPiece.getText().toString();
+                nopiece = Integer.parseInt(nopiece_string);
+                value = Value.getText().toString();
+                payterm = payTerm.getSelectedItem().toString();
+                service = Service.getSelectedItem().toString();
+                opt = option.getSelectedItem().toString();
+                currency = Currency.getSelectedItem().toString();
+
+                if (value.equals("")||nopiece_string.equals("")|| description.equals("")){
+                    builder.setTitle("Incomplete Fields");
+                    builder.setMessage("Please fill in all the required fields");
+                    builder.show();
+
+                } else{
+                    onCompleteShipmentDetails.shipPayTerm(payterm);
+                    onCompleteShipmentDetails.shipService(service);
+                    onCompleteShipmentDetails.shipOpt(opt);
+                    onCompleteShipmentDetails.shipDescription(description);
+                    onCompleteShipmentDetails.shipNoPiece(nopiece);
+                    onCompleteShipmentDetails.shipValue(value);
+                    onCompleteShipmentDetails.shipCurrency(currency);
+                    onCompleteShipmentDetails.shipDg(dg);
+                    onCompleteShipmentDetails.submit();
+                }
+            }
+        });
         return view;
     }
 }
