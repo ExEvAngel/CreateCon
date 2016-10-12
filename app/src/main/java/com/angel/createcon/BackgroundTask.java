@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.angel.createcon.app.AppController;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -40,19 +41,18 @@ public class BackgroundTask {
     Gson gson = new Gson();
     Type listType = new TypeToken<List<Consignment>>(){}.getType();
     ProgressDialog pDialog;
-
     VolleyCallback callBack;
-
-    public interface VolleyCallback{
-        void onGetAllConsSuccess(ArrayList<Consignment> cons);
-    }
 
     public BackgroundTask(Context context){
         this.context = context;
 
     }
 
-    public ArrayList<Consignment> getAllCons(final VolleyCallback callback){
+    public interface VolleyCallback{
+        void onSuccess(ArrayList<Consignment>con);
+    }
+
+    public void getAllCons(final VolleyCallback callback){
         String tag_json_obj = "json_obj_req";
 
         showProgressDialog();
@@ -61,7 +61,7 @@ public class BackgroundTask {
                     @Override
                     public void onResponse(JSONArray response) {
                         arrayList = gson.fromJson(response.toString(),listType);
-                        callBack.onGetAllConsSuccess(arrayList);
+                        callback.onSuccess(arrayList);
                         hideProgressDialog();
                         //Toast.makeText(context, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
                         //((TextView)((Activity)context).getWindow().getDecorView().findViewById(R.id.txt_my_con)).setText(arrayList.get(0).getSendname());
@@ -92,7 +92,6 @@ public class BackgroundTask {
 
         AppController.getInstance().addToRequestQueue(jsonArrayRequest);
 
-        return arrayList;
     }
 
     private void showProgressDialog() {

@@ -10,14 +10,13 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class GetConsActivity extends AppCompatActivity{
+public class GetConsActivity extends AppCompatActivity implements BackgroundTask.VolleyCallback{
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<Consignment> arrayList;
     TextView txtView;
     BackgroundTask backgroundTask;
-    BackgroundTask.VolleyCallback callback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +28,27 @@ public class GetConsActivity extends AppCompatActivity{
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         backgroundTask = new BackgroundTask(GetConsActivity.this);
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         backgroundTask.getAllCons(new BackgroundTask.VolleyCallback() {
             @Override
-            public void onGetAllConsSuccess(ArrayList<Consignment> cons) {
-                arrayList = cons;
+            public void onSuccess(ArrayList<Consignment> con) {
+                arrayList=con;
+                //Toast.makeText(this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
+                adapter = new RecyclerAdapter(arrayList);
+                recyclerView.setAdapter(adapter);
             }
         });
-        //Toast.makeText(this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
-        adapter = new RecyclerAdapter(arrayList);
-        recyclerView.setAdapter(adapter);
 
+    }
+
+    @Override
+    public void onSuccess(ArrayList<Consignment> con) {
+        this.arrayList = con;
     }
 }
