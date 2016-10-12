@@ -22,4 +22,10 @@
         android:text = "Create consignment"
         android:layout_below="@+id/main_textview"
         android:id="@+id/create_con"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Get Consignments"
+        android:layout_below="@+id/create_con"
+        android:id="@+id/get_con"/>
 </RelativeLayout>

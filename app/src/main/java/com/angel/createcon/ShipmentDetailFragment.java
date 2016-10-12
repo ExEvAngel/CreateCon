@@ -25,7 +25,7 @@ public class ShipmentDetailFragment extends Fragment{
     int nopiece;
     String payterm, service, opt, description,currency;
     boolean dg;
-    String value;
+    double value;
 
     TextView noPiece, Value, desc;
     Spinner payTerm, Service, option, Currency;
@@ -53,7 +53,7 @@ public class ShipmentDetailFragment extends Fragment{
         public void shipOpt(String opt);
         public void shipDescription(String description);
         public void shipCurrency(String currency);
-        public void shipValue(String value);
+        public void shipValue(double value);
         public void shipDg(boolean dg);
         public void submit();
     }
@@ -116,13 +116,14 @@ public class ShipmentDetailFragment extends Fragment{
                 description = desc.getText().toString();
                 String nopiece_string = noPiece.getText().toString();
                 nopiece = Integer.parseInt(nopiece_string);
-                value = Value.getText().toString();
+                String value_string = Value.getText().toString();
+                value = Double.parseDouble(value_string);
                 payterm = payTerm.getSelectedItem().toString();
                 service = Service.getSelectedItem().toString();
                 opt = option.getSelectedItem().toString();
                 currency = Currency.getSelectedItem().toString();
 
-                if (value.equals("")||nopiece_string.equals("")|| description.equals("")){
+                if (value_string.equals("")||nopiece_string.equals("")|| description.equals("")){
                     builder.setTitle("Incomplete Fields");
                     builder.setMessage("Please fill in all the required fields");
                     builder.show();

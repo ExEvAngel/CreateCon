@@ -7,6 +7,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ import java.util.Date;
 
 public class CreateConActivity extends AppCompatActivity implements SenderDetailFragment.OnCompleteSendDetails, ReceiverDetailFragment.OnCompleteReceiverDetails,ShipmentDetailFragment.OnCompleteShipmentDetails {
     int nopiece,conid;
-    String value;
+    double value;
     String payterm, custref, service, opt, description,currency, userid;
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
     String recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno;
@@ -98,7 +99,6 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
 
     @Override
     public void getReceiverDetails() {
-
         ReceiverDetailFragment receiverDetailFragment = new ReceiverDetailFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -191,7 +191,7 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     }
 
     @Override
-    public void shipValue(String value) {
+    public void shipValue(double value) {
         this.value=value;
     }
 
@@ -208,6 +208,11 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
                 sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno,
                 recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno,
                 service, opt, dg, nopiece, description,  value, currency, userid, false,today );
+
+
+        BackgroundTask backgroundTask = new BackgroundTask(getApplicationContext());
+        backgroundTask.createCon(con);
+
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("NEW_CON",con);
         startActivity(intent);
