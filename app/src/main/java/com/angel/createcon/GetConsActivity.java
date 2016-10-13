@@ -1,18 +1,18 @@
 package com.angel.createcon;
 
-import android.app.backup.BackupAgent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.angel.createcon.app.GetAllConsListener;
 
 import java.util.ArrayList;
 
-public class GetConsActivity extends AppCompatActivity implements BackgroundTask.VolleyCallback{
+public class GetConsActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    ConsAdapter adapter;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<Consignment> arrayList;
     TextView txtView;
@@ -26,29 +26,17 @@ public class GetConsActivity extends AppCompatActivity implements BackgroundTask
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+        adapter = new ConsAdapter(getApplicationContext());
         recyclerView.setHasFixedSize(true);
-        backgroundTask = new BackgroundTask(GetConsActivity.this);
+        recyclerView.setAdapter(adapter);
+
+        BackgroundTask backgroundTask = new BackgroundTask();
+        arrayList = backgroundTask.getAllCons();
+        //Toast.makeText(this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
+
+        adapter.setConsignments(arrayList);
 
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        backgroundTask.getAllCons(new BackgroundTask.VolleyCallback() {
-            @Override
-            public void onSuccess(ArrayList<Consignment> con) {
-                arrayList=con;
-                //Toast.makeText(this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
-                adapter = new RecyclerAdapter(arrayList);
-                recyclerView.setAdapter(adapter);
-            }
-        });
-
-    }
-
-    @Override
-    public void onSuccess(ArrayList<Consignment> con) {
-        this.arrayList = con;
-    }
 }

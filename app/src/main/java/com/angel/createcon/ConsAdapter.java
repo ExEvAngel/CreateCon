@@ -1,10 +1,13 @@
 package com.angel.createcon;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.angel.createcon.app.AppController;
 
 import java.util.ArrayList;
 
@@ -12,13 +15,20 @@ import java.util.ArrayList;
  * Created by Angel on 10/12/2016.
  */
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> {
 
     ArrayList<Consignment> arrayList = new ArrayList<>();
+    private LayoutInflater layoutInflater;
+    private AppController appController;
+    private int mPreviousPosition = 0;
 
-    public RecyclerAdapter (ArrayList<Consignment> arrayList){
-        this.arrayList = arrayList;
-
+    public ConsAdapter(Context context){
+        layoutInflater = LayoutInflater.from(context);
+        appController = AppController.getInstance();
+    }
+    public void setConsignments(ArrayList<Consignment> con){
+        this.arrayList = con;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -32,7 +42,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.conid.setText(arrayList.get(position).getConid());
         holder.description.setText(arrayList.get(position).getDescription());
-
+        mPreviousPosition = position;
     }
 
     @Override
@@ -47,4 +57,5 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
             description = (TextView) itemView.findViewById(R.id.txt_con_desc);
         }
     }
+
 }

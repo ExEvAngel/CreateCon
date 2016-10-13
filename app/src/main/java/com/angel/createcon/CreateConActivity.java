@@ -210,8 +210,8 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
                 service, opt, dg, nopiece, description,  value, currency, userid, false,today );
 
 
-        BackgroundTask backgroundTask = new BackgroundTask(getApplicationContext());
-        backgroundTask.createCon(con);
+        //BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
+        //backgroundTask.createCon(con);
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("NEW_CON",con);
