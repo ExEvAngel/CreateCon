@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CreateCon</string>
+    <string name="app_name">Freight App</string>
     <string name="conId">Consignment No</string>
     <string name="payterm">Sender or Receiver</string>
     <string name="custRef">Customer Reference</string>

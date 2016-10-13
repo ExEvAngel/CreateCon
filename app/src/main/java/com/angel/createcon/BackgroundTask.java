@@ -2,7 +2,6 @@ package com.angel.createcon;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -24,33 +23,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BackgroundTask{
-    Context context;
     String json_url = "http://ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000/api/cons";
     Gson gson;
     Type listType;
     ProgressDialog pDialog;
 
-    ArrayList<Consignment> arrayList;
+    ArrayList<Consignment>  arrayList;
     AppController appController;
+    ConsAdapter adapter;
+    Context context;
 
-
-    public BackgroundTask( ){
+    public BackgroundTask(Context context){
+        this.context = context;
         listType = new TypeToken<List<Consignment>>(){}.getType();
         appController = AppController.getInstance();
         gson = new Gson();
     }
 
-    protected ArrayList<Consignment> getAllCons(Void... params) {
-        arrayList = new ArrayList<>();
+    public void  getAllCons(final GetAllConsListener callBack) {
         String tag_json_obj = "json_obj_req";
         //showProgressDialog();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, json_url,null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        arrayList = gson.fromJson(response.toString(),listType);
+                        callBack.onSuccess(response.toString());
                         //hideProgressDialog();
-                        //Toast.makeText(context, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
                         //((TextView)((Activity)context).getWindow().getDecorView().findViewById(R.id.txt_my_con)).setText(arrayList.get(0).getSendname());
                         /*int count = 0;
                             while(count<response.length()){
@@ -78,7 +77,6 @@ public class BackgroundTask{
         //MyVolleySingleton.getmInstance(context).addToRequestQueue(jsonArrayRequest);
 
         appController.addToRequestQueue(jsonArrayRequest);
-        return arrayList;
     }
 
     private void showProgressDialog() {

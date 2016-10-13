@@ -9,5 +9,5 @@ import java.util.ArrayList;
  */
 
 public interface GetAllConsListener {
-     void onGetAllConsListener(ArrayList<Consignment> con);
+     void onSuccess(String response);
 }

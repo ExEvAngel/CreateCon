@@ -13,7 +13,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Welcome!"
         android:id="@+id/main_textview"/>
 
     <Button
@@ -28,4 +28,17 @@
         android:text = "Get Consignments"
         android:layout_below="@+id/create_con"
         android:id="@+id/get_con"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Tracking"
+        android:layout_below="@+id/get_con"
+        android:id="@+id/tracking"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text = "Driver Pickup"
+        android:layout_below="@+id/tracking"
+        android:id="@+id/driver_pickup"/>
+
 </RelativeLayout>
