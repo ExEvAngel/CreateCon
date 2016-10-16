@@ -1,5 +1,11 @@
 <resources>
     <string name="app_name">Freight App</string>
+    <string name="action_logout">Logout</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
+    <string name="reset_password">Forgot Password?</string>
     <string name="conId">Consignment No</string>
     <string name="payterm">Sender or Receiver</string>
     <string name="custRef">Customer Reference</string>

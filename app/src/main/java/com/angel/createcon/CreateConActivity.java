@@ -37,6 +37,7 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_con);
         textView = (TextView) findViewById(R.id.txt_create_con);
+        textView.setText("Senders Details");
 
         SenderDetailFragment senderDetailFragment = new SenderDetailFragment();
         FragmentManager fragmentManager = getFragmentManager();
@@ -99,6 +100,7 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
 
     @Override
     public void getReceiverDetails() {
+        textView.setText("Receivers Details");
         ReceiverDetailFragment receiverDetailFragment = new ReceiverDetailFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -150,8 +152,7 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
 
     @Override
     public void getShipmentDetails() {
-
-        textView.setText(sendname+recname+sendcountry);
+        textView.setText("Shipping Details");
         ShipmentDetailFragment shipmentDetailFragment = new ShipmentDetailFragment();
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -210,8 +211,8 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
                 service, opt, dg, nopiece, description,  value, currency, userid, false,today );
 
 
-        //BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
-        //backgroundTask.createCon(con);
+        BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
+        backgroundTask.createCon(con);
 
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("NEW_CON",con);

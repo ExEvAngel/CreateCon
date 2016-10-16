@@ -48,22 +48,7 @@ public class BackgroundTask{
                     @Override
                     public void onResponse(JSONArray response) {
                         callBack.onSuccess(response.toString());
-                        //hideProgressDialog();
-                        Toast.makeText(context, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
-                        //((TextView)((Activity)context).getWindow().getDecorView().findViewById(R.id.txt_my_con)).setText(arrayList.get(0).getSendname());
-                        /*int count = 0;
-                            while(count<response.length()){
-                                try {
-                                    JSONObject jsonObject = response.getJSONObject(count);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                Consignment con;
 
-
-                                arrayList.add(con);
-                                count++;
-                            }*/
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -74,7 +59,6 @@ public class BackgroundTask{
             }
         });
 
-        //MyVolleySingleton.getmInstance(context).addToRequestQueue(jsonArrayRequest);
 
         appController.addToRequestQueue(jsonArrayRequest);
     }

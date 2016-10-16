@@ -22,19 +22,19 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
     private AppController appController;
     private int mPreviousPosition = 0;
 
-    public ConsAdapter(ArrayList<Consignment> arrayList){
+    public ConsAdapter(ArrayList<Consignment> arrayList,Context context){
         this.arrayList = arrayList;
-        //layoutInflater = LayoutInflater.from(context);
-        //appController = AppController.getInstance();
+        layoutInflater = LayoutInflater.from(context);
+        appController = AppController.getInstance();
     }
     public void setConsignments(ArrayList<Consignment> con){
         this.arrayList = con;
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_con_item,parent,false);
+        View view = layoutInflater.inflate(R.layout.row_con_item,parent,false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }

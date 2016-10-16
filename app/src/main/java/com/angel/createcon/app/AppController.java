@@ -8,6 +8,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 
+import com.stormpath.sdk.BuildConfig;
+import com.stormpath.sdk.Stormpath;
+import com.stormpath.sdk.StormpathConfiguration;
+import com.stormpath.sdk.StormpathLogger;
+
 
 public class AppController extends Application {
 
@@ -17,10 +22,23 @@ public class AppController extends Application {
     private RequestQueue mRequestQueue;
 
     private static AppController mInstance;
+    public static final String baseUrl = "http://ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000/";
+
 
     @Override
     public void onCreate() {
         super.onCreate();
+        if (BuildConfig.DEBUG) {
+            // we only want to show the logs in debug builds, for easier debugging
+            Stormpath.setLogLevel(StormpathLogger.VERBOSE);
+        }
+
+        // Initialize Stormpath
+        StormpathConfiguration stormpathConfiguration = new StormpathConfiguration.Builder()
+                .baseUrl(baseUrl)
+                .build();
+        Stormpath.init(this, stormpathConfiguration);
+
         mInstance = this;
     }
 

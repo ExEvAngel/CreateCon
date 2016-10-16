@@ -20,6 +20,9 @@
         </activity>
         <activity android:name=".CreateConActivity" />
         <activity android:name=".GetConsActivity"></activity>
+        <activity android:name="com.stormpath.sdk.ui.StormpathLoginActivity"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
     </application>
 
 </manifest>
