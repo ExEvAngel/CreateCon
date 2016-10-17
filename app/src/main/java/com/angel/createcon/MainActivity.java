@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
             @Override
             public void onSuccess(UserProfile userProfile) {
+
             }
 
             @Override

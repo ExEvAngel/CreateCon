@@ -29,21 +29,20 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
     }
     public void setConsignments(ArrayList<Consignment> con){
         this.arrayList = con;
-        //notifyDataSetChanged();
     }
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = layoutInflater.inflate(R.layout.row_con_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_con_item,parent,false);
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.conid.setText(arrayList.get(position).getConid());
-        holder.description.setText(arrayList.get(position).getDescription());
-        mPreviousPosition = position;
+        holder.conid.setText(String.valueOf(arrayList.get(position).getConid()));
+        holder.description.setText(String.valueOf(arrayList.get(position).getDescription()));
+        holder.value.setText(String.valueOf(arrayList.get(position).getValue()));
     }
 
     @Override
@@ -51,11 +50,13 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
         return arrayList.size();
     }
     public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView conid,description;
+        TextView conid,description, value;
         public MyViewHolder(View itemView) {
             super(itemView);
             conid = (TextView) itemView.findViewById(R.id.txt_conid);
             description = (TextView) itemView.findViewById(R.id.txt_con_desc);
+            value = (TextView) itemView.findViewById(R.id.txt_value);
+
         }
     }
 

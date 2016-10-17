@@ -2,7 +2,6 @@ package com.angel.createcon;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -10,7 +9,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.angel.createcon.app.AppController;
-import com.angel.createcon.app.GetAllConsListener;
+import com.angel.createcon.Listeners.GetAllConsListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -32,6 +31,7 @@ public class BackgroundTask{
     AppController appController;
     ConsAdapter adapter;
     Context context;
+    GetAllConsListener getAllConsListener;
 
     public BackgroundTask(Context context){
         this.context = context;

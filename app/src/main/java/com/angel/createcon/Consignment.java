@@ -12,14 +12,14 @@ import java.util.Date;
 public class Consignment implements Parcelable {
     int  nopiece,conid;
     double value;
-    String id;
+    int id;
     String payterm, custref, service, opt, description,currency, userid;
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
     String recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno;
     boolean dg, parked;
     Date creationdate;
 
-    public Consignment(String id, int conid, String payterm, String custref,
+    public Consignment(int id, int conid, String payterm, String custref,
                        String sendacc, String sendname, String sendaddress, String sendcity, String sendpostcode, String sendcountry, String sendcontactname, String sendcontactno,
                        String recacc, String recname, String recaddress, String reccity, String recpostcode, String reccountry, String reccontactname, String reccontactno,
                        String service, String opt, boolean dg, int nopiece, String description, double  value, String currency, String userid, boolean parked, Date creationdate){
@@ -56,11 +56,11 @@ public class Consignment implements Parcelable {
 
     }
 
-    private String getId() {
+    private int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -303,7 +303,7 @@ public class Consignment implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(id);
+        dest.writeInt(id);
         dest.writeInt(conid);
         dest.writeString(payterm);
         dest.writeString(custref);
@@ -349,7 +349,7 @@ public class Consignment implements Parcelable {
     };
 
     private Consignment (Parcel in) {
-        id=in.readString();
+        id=in.readInt();
         conid=in.readInt();
         payterm=in.readString();
         custref=in.readString();
