@@ -5,7 +5,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.android.volley.Request;
@@ -49,6 +55,8 @@ public class GetConsActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        registerForContextMenu(recyclerView);
+
         gson = new Gson();
         /*
         new TaskLoadConsignments(GetConsActivity.this).execute();
@@ -81,6 +89,23 @@ public class GetConsActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.my_cons_contextual_menu,menu);
+
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        //ContextMenuRecyclerView.RecyclerViewContextMenuInfo info = item.getMenuInfo();
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        Toast.makeText(this, " User selected something ", Toast.LENGTH_LONG).show();
+        return super.onContextItemSelected(item);
+    }
+
     /*
     @Override
     protected void onResume() {
@@ -150,9 +175,11 @@ public class GetConsActivity extends AppCompatActivity {
         if (adapter==null) {
             adapter = new ConsAdapter(consignments,GetConsActivity.this);
             recyclerView.setAdapter(adapter);
+            registerForContextMenu(recyclerView);
         }else{
             adapter.setConsignments(consignments);
             adapter.notifyDataSetChanged();
+            registerForContextMenu(recyclerView);
         }
 
         Log.d("UPDATE", "localArrayList: "+arrayList.size());

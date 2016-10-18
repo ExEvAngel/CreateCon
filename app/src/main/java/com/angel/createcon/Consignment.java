@@ -56,7 +56,7 @@ public class Consignment implements Parcelable {
 
     }
 
-    private int getId() {
+    public int getId() {
         return id;
     }
 

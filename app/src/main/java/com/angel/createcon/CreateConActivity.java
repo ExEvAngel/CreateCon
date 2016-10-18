@@ -11,6 +11,12 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.stormpath.sdk.Stormpath;
+import com.stormpath.sdk.StormpathCallback;
+import com.stormpath.sdk.models.StormpathError;
+import com.stormpath.sdk.models.UserProfile;
+import com.stormpath.sdk.ui.StormpathLoginActivity;
+
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -23,12 +29,12 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     String payterm, custref, service, opt, description,currency, userid;
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
     String recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno;
+    String getUserid;
     boolean dg, parked;
     Date creationdate;
-
     TextView textView;
     Button btn;
-    Consignment consignment;
+    Consignment con;
 
 
 
@@ -204,17 +210,70 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     @Override
     public void submit() {
 
+        Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
+            @Override
+            public void onSuccess(UserProfile userProfile) {
+                userid =userProfile.getEmail();
+            }
+
+            @Override
+            public void onFailure(StormpathError error) {
+                // Show login view
+            }
+        });
         Date today = Calendar.getInstance().getTime();
-        Consignment con = new Consignment(null,conid, payterm, custref,
+        con = new Consignment(0,conid, payterm, custref,
                 sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno,
                 recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno,
                 service, opt, dg, nopiece, description,  value, currency, userid, false,today );
+        Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
+            @Override
+            public void onSuccess(UserProfile userProfile) {
+                con.setUserid(userProfile.getEmail());
+            }
 
+            @Override
+            public void onFailure(StormpathError error) {
+                // Show login view
+            }
+        });
+
+
+
+        /*
+        con.setConid(conid);
+        con.setNopiece(nopiece);
+        con.setValue(value);
+        con.setPayterm(payterm);
+        con.setCustref(custref);
+        con.setService(service);
+        con.setOpt(opt);
+        con.setDescription(description);
+        con.setCurrency(currency);
+        con.setSendacc(sendacc);
+        con.setSendname(sendname);
+        con.setSendaddress(sendaddress);
+        con.setSendcity(sendcity);
+        con.setSendpostcode(sendpostcode);
+        con.setSendcountry(sendcountry);
+        con.setSendcontactname(sendcontactname);
+        con.setSendcontactno(sendcontactno);
+        con.setRecacc(recacc);
+        con.setRecname(recname);
+        con.setRecaddress(recaddress);
+        con.setReccity(reccity);
+        con.setRecpostcode(recpostcode);
+        con.setReccountry(reccountry);
+        con.setReccontactname(reccontactname);
+        con.setReccontactno(reccontactno);
+        con.setParked(false);
+        con.setDg(dg);
+        con.setCreationdate(today);*/
 
         BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
         backgroundTask.createCon(con);
 
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(CreateConActivity.this, MainActivity.class);
         intent.putExtra("NEW_CON",con);
         startActivity(intent);
         /*con.setId(null);
