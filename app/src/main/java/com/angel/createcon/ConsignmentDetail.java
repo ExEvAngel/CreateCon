@@ -14,8 +14,8 @@ public class ConsignmentDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consignment_detail);
 
-        if(getIntent().hasExtra("NEW_CON")){
-            Consignment con =  getIntent().getParcelableExtra("CONSIGNMENT");
+        if(getIntent().hasExtra("CON")){
+            Consignment con =  getIntent().getParcelableExtra("CON");
             Gson gson = new Gson();
             String json = gson.toJson(con);
             Log.d("DETAILS",json);

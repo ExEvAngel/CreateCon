@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.angel.createcon.app.AppController;
 
@@ -62,7 +64,13 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
     public int getItemCount() {
         return arrayList.size();
     }
-    public static class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+
+    public void delete (int position){
+        notifyItemRemoved(position);
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         TextView conid,description, value;
         RelativeLayout row_con_item;
         ArrayList<Consignment> consignments = new ArrayList<Consignment>();
@@ -83,7 +91,9 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
             int position =getAdapterPosition();
             Consignment consignment = this.consignments.get(position);
             Intent intent = new Intent(this.ctx, ConsignmentDetail.class);
-            intent.putExtra("CONSIGNMENT", consignment);
+            //Toast.makeText(context, "ItemPosition:"+position, Toast.LENGTH_SHORT).show();
+            Log.d("ITEM",String.valueOf(consignment.getConid()));
+            intent.putExtra("CON", consignment);
             this.ctx.startActivity(intent);
         }
     }
