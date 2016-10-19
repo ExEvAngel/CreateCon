@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_consignment_detail"
@@ -9,10 +12,303 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.angel.createcon.ConsignmentDetail">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/details_con"
-        android:text="Hello"/>
+        android:text="Hello"
+        android:layout_above="@+id/send_acc"
+        android:layout_alignRight="@+id/con_id"
+        android:layout_alignEnd="@+id/con_id"
+        android:layout_marginBottom="177dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/con_id"
+        android:hint="@string/connote"
+        android:maxLength="9"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_address"
+        android:hint="@string/address"
+        android:maxLength="92"
+        android:layout_below="@+id/send_name"
+        android:layout_alignLeft="@+id/send_name"
+        android:layout_alignStart="@+id/send_name" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_name"
+        android:hint="@string/name"
+        android:maxLength="64"
+        android:layout_below="@+id/send_acc"
+        android:layout_alignLeft="@+id/send_acc"
+        android:layout_alignStart="@+id/send_acc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_city"
+        android:hint="@string/city"
+        android:maxLength="32"
+        android:layout_below="@+id/send_address"
+        android:layout_alignLeft="@+id/send_address"
+        android:layout_alignStart="@+id/send_address" />
+
+    <TextView
+        android:id="@+id/sender_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sendCountry"
+        android:layout_below="@+id/send_city"
+        android:layout_alignLeft="@+id/send_city"
+        android:layout_alignStart="@+id/send_city" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_contact_name"
+        android:hint="@string/contactName"
+        android:maxLength="32"
+        android:layout_below="@+id/sender_country"
+        android:layout_alignLeft="@+id/sender_country"
+        android:layout_alignStart="@+id/sender_country" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_contact_no"
+        android:hint="@string/contactNo"
+        android:maxLength="26"
+        android:layout_below="@+id/sender_country"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_postcode"
+        android:hint="@string/postcode"
+        android:maxLength="10"
+        android:layout_above="@+id/sender_country"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <TextView
+        android:id="@+id/rec_country"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recCountry"
+        android:layout_below="@+id/rec_city"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rec_city"
+        android:hint="@string/city"
+        android:maxLength="35"
+        android:layout_below="@+id/rec_address"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rec_address"
+        android:hint="@string/address"
+        android:maxLength="92"
+        android:layout_below="@+id/rec_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rec_contact_name"
+        android:hint="@string/contactName"
+        android:maxLength="32"
+        android:layout_below="@+id/rec_country"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rec_contact_no"
+        android:hint="@string/contactNo"
+        android:maxLength="26"
+        android:layout_below="@+id/rec_country"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+    <TextView
+        android:id="@+id/pay_term"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/payterm"
+        android:layout_below="@+id/con_id"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_ship_details"
+        android:text="Shipment Details"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/rec_contact_no"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/opt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/opt"
+        android:layout_below="@+id/service"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/service"
+        android:layout_below="@+id/txt_ship_details"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/dg"
+        android:id="@+id/dg"
+        android:layout_below="@+id/opt"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/no_piece"
+        android:hint="@string/noPiece"
+        android:maxLength="2"
+        android:layout_below="@+id/dg"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/description"
+        android:hint="@string/description"
+        android:maxLength="92"
+        android:layout_below="@+id/no_piece"
+        android:layout_toLeftOf="@+id/details_con"
+        android:layout_toStartOf="@+id/details_con" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/value"
+        android:hint="@string/value"
+        android:maxLength="9"
+        android:layout_below="@+id/description"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rec_acc"
+        android:hint="@string/recAcc"
+        android:maxLength="9"
+        android:layout_below="@+id/txt_rec_details"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rec_name"
+        android:hint="@string/name"
+        android:maxLength="64"
+        android:layout_below="@+id/rec_acc"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Receiver Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_rec_details"
+        android:layout_marginTop="31dp"
+        android:layout_below="@+id/send_contact_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rec_postcode"
+        android:hint="@string/postcode"
+        android:maxLength="10"
+        android:layout_above="@+id/rec_country"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cust_ref"
+        android:hint="@string/custRef"
+        android:maxLength="32"
+        android:layout_below="@+id/con_id"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Sender Details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_send_details"
+        android:layout_below="@+id/cust_ref"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/send_acc"
+        android:hint="@string/acc"
+        android:maxLength="9"
+        android:lines="1"
+        android:layout_below="@+id/txt_send_details"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/track"
+        android:id="@+id/track_btn"
+        android:layout_below="@+id/value"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/park_unpark"
+        android:text="@string/park_unpark"
+        android:layout_below="@+id/track_btn"/>
+
 
 </RelativeLayout>
+</ScrollView>
+

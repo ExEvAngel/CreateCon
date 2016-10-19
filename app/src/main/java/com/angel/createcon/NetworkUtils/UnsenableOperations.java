@@ -3,6 +3,7 @@ package com.angel.createcon.NetworkUtils;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -46,17 +47,18 @@ public class UnsenableOperations{
 
     }
 
-    public void parkCon(Consignment consignment){
+    public void parkCon(Consignment consignment, JSONObject parkDetails){
 
-        String url = "http://ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000/api/cons";
         Uri.Builder builder = new Uri.Builder();
-        builder.scheme("http").authority("ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000")
+        builder.scheme("http").encodedAuthority("ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000")
                 .appendPath("api")
                 .appendPath("cons")
                 .appendPath(String.valueOf(consignment.getId()))
                 .appendPath("park");
         Uri uri = builder.build();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),null,
+        Log.d("PARKCON.URI", uri.toString());
+        Log.d("PARKCON.JSONOBJ", parkDetails.toString());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),parkDetails,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -68,8 +70,39 @@ public class UnsenableOperations{
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // error
-                        //Log.d("Error.Response", error);
+                        Log.d("Err.Res.UnsendOp.Park", error.toString());
+                        error.printStackTrace();
+                    }
+                }
+        );
+        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
+    }
+
+    public void unParkCon(Consignment consignment, JSONObject parkDetails){
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http").encodedAuthority("ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000")
+                .appendPath("api")
+                .appendPath("cons")
+                .appendPath(String.valueOf(consignment.getId()))
+                .appendPath("unpark");
+        Uri uri = builder.build();
+        Log.d("UNPARK.URI", uri.toString());
+        Log.d("UNPARK.JSONOBJ", parkDetails.toString());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),parkDetails,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Err.Res.UnsendOp.Unpark", error.toString());
+                        error.printStackTrace();
                     }
                 }
         );

@@ -24,8 +24,9 @@
             android:name="com.stormpath.sdk.ui.StormpathLoginActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".Tracking" />
-        <activity android:name=".ConsignmentDetail"></activity>
+        <activity android:name=".Tracking.Tracking" />
+        <activity android:name=".ConsignmentDetail" />
+        <activity android:name=".Park.Park"></activity>
     </application>
 
 </manifest>

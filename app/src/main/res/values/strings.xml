@@ -51,11 +51,23 @@
     <string name="next">Next</string>
     <string name="submit">Submit</string>
     <string name="connote">Consignment Number</string>
+    <string name="park_remarks">Remarks</string>
+    <string name="reason">Reason</string>
+    <string name="park_unpark">Park or Unpark</string>
 
 
     <string-array name="pay_term">
         <item>Sender</item>
         <item>Receiver</item>
+    </string-array>
+    <string-array name="park_reason">
+        <item>Dangerous Goods</item>
+        <item>Embargoed</item>
+        <item>Missing/Incomplete Address</item>
+        <item>Missing/Incomplete Paperwork</item>
+        <item>Needs better Description</item>
+        <item>Needs Lithium Battery Declaration</item>
+        <item>Not Servicable</item>
     </string-array>
 
     <string-array name="currency">

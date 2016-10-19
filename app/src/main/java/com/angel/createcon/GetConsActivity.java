@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.angel.createcon.Decoration.SimpleDividerItemDecoration;
 import com.angel.createcon.Listeners.ConsignmentLoadListener;
 import com.angel.createcon.app.AppController;
 import com.angel.createcon.Listeners.GetAllConsListener;
@@ -55,6 +56,7 @@ public class GetConsActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
         registerForContextMenu(recyclerView);
 
         gson = new Gson();
