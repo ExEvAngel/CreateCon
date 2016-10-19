@@ -54,6 +54,9 @@
     <string name="park_remarks">Remarks</string>
     <string name="reason">Reason</string>
     <string name="park_unpark">Park or Unpark</string>
+    <string name="status_code">Status</string>
+    <string name="remarks">Remarks</string>
+    <string name="date">Date</string>
 
 
     <string-array name="pay_term">

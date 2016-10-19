@@ -57,7 +57,7 @@ public class GetConsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
-        registerForContextMenu(recyclerView);
+
 
         gson = new Gson();
         /*

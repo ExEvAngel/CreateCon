@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.angel.createcon.Park.Park;
+import com.angel.createcon.Tracking.Track;
 import com.google.gson.Gson;
 
 public class ConsignmentDetail extends AppCompatActivity {
@@ -20,7 +21,7 @@ public class ConsignmentDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consignment_detail);
         TextView conId, sendacc, sendName, sendAddr, sendCity, sendPc, sendCo, sendContactName,sendContactNo;
-        Button parkUnpark;
+        Button parkUnpark, track;
         gson = new Gson();
 
         if(getIntent().hasExtra("CON")){
@@ -72,6 +73,15 @@ public class ConsignmentDetail extends AppCompatActivity {
                     parkUnparkActivity();
                 }
             });
+
+            track = (Button) findViewById(R.id.track_btn);
+            track.setOnClickListener(new Button.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+                    track();
+                }
+            });
         }
     }
 
@@ -79,7 +89,15 @@ public class ConsignmentDetail extends AppCompatActivity {
         Intent intent = new Intent(ConsignmentDetail.this, Park.class);
         intent.putExtra("CON",con);
         String json = gson.toJson(con);
-        Log.d("CONDETAIL",json);
+        Log.d("CON2PARK",json);
+        startActivity(intent);
+    }
+
+    public void track(){
+        Intent intent = new Intent(ConsignmentDetail.this, Track.class);
+        intent.putExtra("CON",con);
+        String json = gson.toJson(con);
+        Log.d("CON2TRACK",json);
         startActivity(intent);
     }
 
