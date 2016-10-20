@@ -10,10 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.angel.createcon.ConsAdapter;
-import com.angel.createcon.Consignment;
-import com.angel.createcon.ConsignmentDetail;
 import com.angel.createcon.POJO.Tracking;
 import com.angel.createcon.R;
 import com.angel.createcon.app.AppController;
@@ -23,7 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by Angel on 10/20/2016.
  */
-public class TrackAdapter extends RecyclerView.Adapter<com.angel.createcon.Tracking.TrackAdapter.MyViewHolder>  {
+public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.MyViewHolder>  {
 
         ArrayList<Tracking> arrayList = new ArrayList<>();
         private LayoutInflater layoutInflater;
@@ -42,22 +40,19 @@ public class TrackAdapter extends RecyclerView.Adapter<com.angel.createcon.Track
         }
 
         @Override
-        public com.angel.createcon.Tracking.TrackAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_track_item,parent,false);
-            com.angel.createcon.Tracking.TrackAdapter.MyViewHolder myViewHolder = new com.angel.createcon.Tracking.TrackAdapter.MyViewHolder(view, context, arrayList);
+            MyViewHolder myViewHolder = new MyViewHolder(view, context, arrayList);
             return myViewHolder;
         }
 
         @Override
-        public void onBindViewHolder(com.angel.createcon.ConsAdapter.MyViewHolder holder, int position) {
-            String conid = "Consignment: "+String.valueOf(arrayList.get(position).getConid());
-            String description = "Description: "+String.valueOf(arrayList.get(position).getDescription());
-            String value = "Value: "+String.valueOf(arrayList.get(position).getValue())+" "+String.valueOf(arrayList.get(position).getCurrency());
-            holder.conid.setText(conid);
-            holder.description.setText(description);
-            holder.value.setText(value);
-
-
+        public void onBindViewHolder(TrackAdapter.MyViewHolder holder, int position) {
+            holder.status.setText(arrayList.get(position).getStatus());
+            holder.date.setText(arrayList.get(position).getDate().toString());
+            holder.depot.setText(arrayList.get(position).getDepot());
+            holder.username.setText(arrayList.get(position).getUserId());
+            holder.remarks.setText(arrayList.get(position).getRemarks());
         }
 
         @Override
@@ -69,7 +64,7 @@ public class TrackAdapter extends RecyclerView.Adapter<com.angel.createcon.Track
 
         public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-            TextView status,remarks, userId, depot, date;
+            TextView status,date, remarks, depot, username;
 
             ArrayList<Tracking> tracking = new ArrayList<Tracking>();
             Context ctx;
@@ -78,21 +73,22 @@ public class TrackAdapter extends RecyclerView.Adapter<com.angel.createcon.Track
                 itemView.setOnClickListener(this);
                 this.tracking = tracking;
                 this.ctx = ctx;
-                conid = (TextView) itemView.findViewById(R.id.txt_conid);
-                description = (TextView) itemView.findViewById(R.id.txt_con_desc);
-                value = (TextView) itemView.findViewById(R.id.txt_value);
-                row_con_item = (CardView) itemView.findViewById(R.id.row_con_item);
+                status = (TextView) itemView.findViewById(R.id.txt_status);
+                date = (TextView) itemView.findViewById(R.id.txt_date);
+                remarks = (TextView) itemView.findViewById(R.id.txt_remarks);
+                depot = (TextView) itemView.findViewById(R.id.txt_depot);
+                username = (TextView) itemView.findViewById(R.id.txt_username);
             }
 
             @Override
             public void onClick(View v) {
                 int position =getAdapterPosition();
-                Consignment consignment = this.consignments.get(position);
+                Toast.makeText(context, "ItemPosition:"+position, Toast.LENGTH_SHORT).show();
+                /*Consignment consignment = this.consignments.get(position);
                 Intent intent = new Intent(this.ctx, ConsignmentDetail.class);
-                //Toast.makeText(context, "ItemPosition:"+position, Toast.LENGTH_SHORT).show();
                 Log.d("ITEM",String.valueOf(consignment.getConid()));
                 intent.putExtra("CON", consignment);
-                this.ctx.startActivity(intent);
+                this.ctx.startActivity(intent);*/
             }
         }
 

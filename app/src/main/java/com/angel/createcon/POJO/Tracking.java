@@ -13,6 +13,34 @@ import java.util.Date;
 public class Tracking implements Parcelable{
     private String status, remarks, userId, depot;
     private Date date;
+    private int  id;
+    private int cid;
+
+    public int getConid() {
+        return conid;
+    }
+
+    public void setConid(int conid) {
+        this.conid = conid;
+    }
+
+    private int conid;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCid() {
+        return cid;
+    }
+
+    public void setCid(int cid) {
+        this.cid = cid;
+    }
 
     public String getStatus() {
         return status;
@@ -55,20 +83,27 @@ public class Tracking implements Parcelable{
     }
 
     protected Tracking(Parcel in) {
+        id = in.readInt();
         status = in.readString();
         remarks = in.readString();
         userId = in.readString();
         depot = in.readString();
         date =new Date(in.readLong());
+        cid = in.readInt();
+        conid = in.readInt();
+
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
         dest.writeString(status);
         dest.writeString(remarks);
         dest.writeString(userId);
         dest.writeString(depot);
         dest.writeLong(date.getTime());
+        dest.writeInt(cid);
+        dest.writeInt(conid);
     }
 
     @Override

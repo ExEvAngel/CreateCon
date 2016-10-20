@@ -76,7 +76,6 @@ public class GetConsActivity extends AppCompatActivity {
                 ArrayList<Consignment> list = parseResponse(response);
                 updateUI(list);
                 //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
-
                 Log.d("ONSUCCESS", "ARRAYSIZE: "+arrayList.size());
 
             }
@@ -147,26 +146,26 @@ public class GetConsActivity extends AppCompatActivity {
                 Consignment con = null;
 
                 Log.d("PARSE", "parseID: "+jsonObject.getInt("conid"));
-                con.setConid(jsonObject.getInt("conid"));
+    con.setConid(jsonObject.getInt("conid"));
 
-                Log.d("PARSE", "conID: "+con.getConid());
-                con.setDescription(jsonObject.getString("description"));
+    Log.d("PARSE", "conID: "+con.getConid());
+    con.setDescription(jsonObject.getString("description"));
 
-                list.add(con);
-                this.arrayList = list;
-                Log.d("PARSED", "localarrayList: "+list.size());
-            }
-            Log.d("PARSED", "parsedResponse: "+list.size());
+    list.add(con);
+    this.arrayList = list;
+    Log.d("PARSED", "localarrayList: "+list.size());
+}
+Log.d("PARSED", "parsedResponse: "+list.size());
 
         } catch (JSONException e) {
-            e.printStackTrace();
+        e.printStackTrace();
         }
         //arrayList =gson.fromJson(response,new TypeToken<ArrayList<Consignment>>(){}.getType());
         //updateUI(arrayList);
         return list;*/
 
         return gson.fromJson(response,new TypeToken<ArrayList<Consignment>>(){}.getType());
-    }
+        }
 
     public void updateUI(ArrayList<Consignment> consignments){
         this.arrayList = consignments;
@@ -177,11 +176,9 @@ public class GetConsActivity extends AppCompatActivity {
         if (adapter==null) {
             adapter = new ConsAdapter(consignments,GetConsActivity.this);
             recyclerView.setAdapter(adapter);
-            registerForContextMenu(recyclerView);
         }else{
             adapter.setConsignments(consignments);
             adapter.notifyDataSetChanged();
-            registerForContextMenu(recyclerView);
         }
 
         Log.d("UPDATE", "localArrayList: "+arrayList.size());

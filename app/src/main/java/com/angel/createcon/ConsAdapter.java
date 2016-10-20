@@ -70,7 +70,7 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
     }
 
 
-    public void delete (int position){
+    public void delete(int position){
         notifyItemRemoved(position);
     }
 
@@ -88,6 +88,7 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
             description = (TextView) itemView.findViewById(R.id.txt_con_desc);
             value = (TextView) itemView.findViewById(R.id.txt_value);
             row_con_item = (CardView) itemView.findViewById(R.id.row_con_item);
+
         }
 
         @Override

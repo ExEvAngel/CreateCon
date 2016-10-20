@@ -57,6 +57,7 @@
     <string name="status_code">Status</string>
     <string name="remarks">Remarks</string>
     <string name="date">Date</string>
+    <string name="depot">Depot</string>
 
 
     <string-array name="pay_term">

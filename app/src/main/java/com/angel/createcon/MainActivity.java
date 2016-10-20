@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.angel.createcon.Tracking.Track;
 import com.google.gson.Gson;
 import com.stormpath.sdk.Stormpath;
 import com.stormpath.sdk.StormpathCallback;
@@ -24,7 +25,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button createCon, getCon;
+    Button createCon, getCon, tracking;
     EditText mNote;
     Context context;
     private OkHttpClient okHttpClient;
@@ -74,6 +75,17 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this,GetConsActivity.class));
             }
         });
+
+        tracking = (Button) findViewById(R.id.tracking);
+        tracking.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Track.class));
+            }
+        });
+
+
     }
 
     @Override
