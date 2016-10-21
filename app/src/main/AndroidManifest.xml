@@ -35,7 +35,8 @@
         <activity
             android:name=".Park.Park"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Pickup.DriverPickup"></activity>
+        <activity android:name=".Pickup.DriverPickup" />
+        <activity android:name=".Pickup.PickupDetailActivity"></activity>
     </application>
 
 </manifest>

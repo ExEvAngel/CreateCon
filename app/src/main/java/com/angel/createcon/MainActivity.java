@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.angel.createcon.POJO.Pickup;
+import com.angel.createcon.Pickup.DriverPickup;
 import com.angel.createcon.Tracking.Track;
 import com.google.gson.Gson;
 import com.stormpath.sdk.Stormpath;
@@ -25,7 +27,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button createCon, getCon, tracking;
+    Button createCon, getCon, tracking, driverPickup;
     EditText mNote;
     Context context;
     private OkHttpClient okHttpClient;
@@ -82,6 +84,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, Track.class));
+            }
+        });
+
+        driverPickup = (Button) findViewById(R.id.driver_pickup);
+        driverPickup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DriverPickup.class));
             }
         });
 

@@ -10,14 +10,14 @@ import java.util.Date;
  */
 
 public class Consignment implements Parcelable {
-    int  nopiece,conid;
-    double value;
-    int id;
-    String payterm, custref, service, opt, description,currency, userid;
-    String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
-    String recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno;
-    boolean dg, parked;
-    Date creationdate;
+    private int  nopiece,conid;
+    private double value;
+    private int id;
+    private String payterm, custref, service, opt, description,currency, userid;
+    private String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
+    private String recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno;
+    private boolean dg, parked;
+    private Date creationdate;
 
     public Consignment(int id, int conid, String payterm, String custref,
                        String sendacc, String sendname, String sendaddress, String sendcity, String sendpostcode, String sendcountry, String sendcontactname, String sendcontactno,

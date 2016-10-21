@@ -105,7 +105,6 @@ public class ShipmentDetailFragment extends Fragment{
             }
         });
         dgGroup.check(R.id.dg_no);
-        dg = false;
 
         builder = new AlertDialog.Builder(getActivity());
 

@@ -58,6 +58,25 @@
     <string name="remarks">Remarks</string>
     <string name="date">Date</string>
     <string name="depot">Depot</string>
+    <string name="pickup">Driver Pickup</string>
+    <string name="rejectPickup">Reject Pickup</string>
+    <string name="pickUp">Pickup</string>
+    <string name="lithDecNotice">Good with Lithium Batteries requires a Battery Declaration to be provided.</string>
+    <string name="lithBatCheck">Does goods contain Lithium Battery?</string>
+    <string name="bat_yes">Yes</string>
+    <string name="bat_no">No</string>
+    <string name="lithDecCheck">Lithium Battery Declaration Provided?</string>
+    <string name="dec_yes">Yes</string>
+    <string name="dec_no">No</string>
+    <string name="fdaCheck">Any Foods, Drugs or Alcohol in shipment?</string>
+    <string name="fda_yes">Yes</string>
+    <string name="fda_no">No</string>
+    <string name="fdaDecCheck"><![CDATA[Foods Drugs & Alcohol Declaration(FDA) Provided?]]></string>
+    <string name="fdaDec_yes">Yes</string>
+    <string name="fdaDec_no">No</string>
+    <string name="dgDecCheck">Dangerous Goods documents provided?</string>
+    <string name="dgDec_yes">Yes</string>
+    <string name="dgDec_no">No</string>
 
 
     <string-array name="pay_term">
