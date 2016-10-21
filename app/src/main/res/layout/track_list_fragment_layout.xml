@@ -12,7 +12,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/track"
             android:id="@+id/txt_track"
             android:layout_gravity="center"
             android:gravity="center"
@@ -21,7 +20,6 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/connote"
             android:id="@+id/txt_con"
             android:layout_gravity="center"
             android:gravity="left"

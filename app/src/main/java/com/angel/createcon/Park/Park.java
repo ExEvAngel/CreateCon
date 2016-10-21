@@ -9,9 +9,15 @@ import android.util.Log;
 
 import com.angel.createcon.Consignment;
 import com.angel.createcon.GetConsActivity;
+import com.angel.createcon.MainActivity;
 import com.angel.createcon.NetworkUtils.UnsenableOperations;
+import com.angel.createcon.POJO.Tracking;
 import com.angel.createcon.R;
 import com.google.gson.Gson;
+import com.stormpath.sdk.Stormpath;
+import com.stormpath.sdk.StormpathCallback;
+import com.stormpath.sdk.models.StormpathError;
+import com.stormpath.sdk.models.UserProfile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,7 +42,22 @@ public class Park extends AppCompatActivity {
             Log.d("PARK",json);
 
             if(con.isParked()) {
-                unParkCon();
+
+                Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
+                    @Override
+                    public void onSuccess(UserProfile userProfile) {
+                        //showProgressDialog();
+                        unParkCon(userProfile.getEmail());
+
+                        Intent intent = new Intent(Park.this, GetConsActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(StormpathError error) {
+                        // Show login view
+                    }
+                });
             }else{
                 ParkConFragment parkConFragment = new ParkConFragment();
                 Bundle args = new Bundle();
@@ -51,19 +72,11 @@ public class Park extends AppCompatActivity {
 
     }
 
-    public void unParkCon(){
+    public void unParkCon(String username){
         UnsenableOperations unsenableOperations = new UnsenableOperations(this);
-        JSONObject parkDetails = new JSONObject();
         Date today = Calendar.getInstance().getTime();
-        String date = today.toString();
-        try {
-            parkDetails.put("date", date);
+        Tracking tracking = new Tracking("UP", "Unparked. Good to Go", username, "SYD",today, 0, con.getId(), con.getConid());
+        unsenableOperations.unParkCon(con, tracking);
 
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        unsenableOperations.unParkCon(con, parkDetails);
-        Intent intent = new Intent(Park.this, GetConsActivity.class);
-        startActivity(intent);
     }
 }

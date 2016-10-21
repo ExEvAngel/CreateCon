@@ -16,6 +16,17 @@ public class Tracking implements Parcelable{
     private int  id;
     private int cid;
 
+    public Tracking(String status, String remarks, String userId, String depot, Date date, int id, int cid, int conid) {
+        this.status = status;
+        this.remarks = remarks;
+        this.userId = userId;
+        this.depot = depot;
+        this.date = date;
+        this.id = id;
+        this.cid = cid;
+        this.conid = conid;
+    }
+
     public int getConid() {
         return conid;
     }
@@ -82,7 +93,7 @@ public class Tracking implements Parcelable{
         this.date = date;
     }
 
-    protected Tracking(Parcel in) {
+    private Tracking(Parcel in) {
         id = in.readInt();
         status = in.readString();
         remarks = in.readString();

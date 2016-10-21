@@ -2,6 +2,7 @@ package com.angel.createcon.Park;
 
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.SpeechRecognizer;
@@ -19,8 +20,14 @@ import com.angel.createcon.Consignment;
 import com.angel.createcon.CreateConActivity;
 import com.angel.createcon.GetConsActivity;
 import com.angel.createcon.MainActivity;
+import com.angel.createcon.NetworkUtils.TrackingUtil;
 import com.angel.createcon.NetworkUtils.UnsenableOperations;
+import com.angel.createcon.POJO.Tracking;
 import com.angel.createcon.R;
+import com.stormpath.sdk.Stormpath;
+import com.stormpath.sdk.StormpathCallback;
+import com.stormpath.sdk.models.StormpathError;
+import com.stormpath.sdk.models.UserProfile;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,11 +46,17 @@ public class ParkConFragment extends Fragment {
     TextView parkRemarks, conId;
     Button park;
     Consignment con;
+    ProgressDialog pDialog;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.park_con_fragment,container,false);
+
+
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.setCancelable(false);
 
         parkReason = (Spinner) view.findViewById(R.id.park_reason);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -64,7 +77,25 @@ public class ParkConFragment extends Fragment {
 
             @Override
             public void onClick(View v) {
-                parkCon();
+                //showProgressDialog();
+                Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
+                    @Override
+                    public void onSuccess(UserProfile userProfile) {
+                        //showProgressDialog();
+                        parkCon(userProfile.getEmail());
+                       // updateParkTracking(userProfile.getEmail());
+
+                        Intent intent = new Intent(getActivity(), GetConsActivity.class);
+                        startActivity(intent);
+
+                    }
+
+                    @Override
+                    public void onFailure(StormpathError error) {
+                        // Show login view
+                    }
+                });
+
             }
         });
 
@@ -89,23 +120,49 @@ public class ParkConFragment extends Fragment {
         }
     }
 
-    public void parkCon(){
+    public void parkCon(String userid){
         UnsenableOperations unsenableOperations = new UnsenableOperations(getActivity());
-        JSONObject parkDetails = new JSONObject();
         String reason = parkReason.getSelectedItem().toString();
         String remarks = String.valueOf(parkRemarks.getText());
         Date today = Calendar.getInstance().getTime();
-        String date = today.toString();
+        Tracking tracking = new Tracking("UP", reason+"."+remarks, userid, "SYD",today, 0, con.getId(), con.getConid());
+        unsenableOperations.parkCon(con, tracking);
+    }
+    /*
+    public void updateParkTracking(String userid){
+        //JSONObject parkTracking = new JSONObject();
+        String reason = parkReason.getSelectedItem().toString();
+        String remarks = String.valueOf(parkRemarks.getText());
+        Date today = Calendar.getInstance().getTime();
+        Tracking tracking = new Tracking("UP", reason+"."+remarks, userid, "SYD",today, 0, con.getId(), con.getConid());
+        /*
         try {
-            parkDetails.put("reason", reason);
-            parkDetails.put("remarks", remarks);
-            parkDetails.put("date", date);
+            parkTracking.put("status", "UP");
+            parkTracking.put("remarks", reason+"."+remarks);
+            parkTracking.put("depot", "SYD");
+            parkTracking.put("date", date);
+            parkTracking.put("userid", email);
+            parkTracking.put("cid", con.getId());
+            parkTracking.put("conid",)
 
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-        unsenableOperations.parkCon(con, parkDetails);
-        Intent intent = new Intent(getActivity(), GetConsActivity.class);
-        startActivity(intent);
+        }*//*
+        TrackingUtil trackingUtil  = new TrackingUtil(getActivity());
+        trackingUtil.updateTracking(tracking);
+
+    }*/
+    private void showProgressDialog() {
+        pDialog = new ProgressDialog(getActivity());
+        pDialog.setMessage("Loading...");
+        pDialog.setCancelable(false);
+
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (pDialog.isShowing())
+            pDialog.hide();
     }
 }

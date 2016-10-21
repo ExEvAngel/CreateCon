@@ -127,6 +127,7 @@ public class TrackListFragment extends Fragment{
     public void updateUI(ArrayList<Tracking> tracking){
 
             this.arrayList = tracking;
+            txt_track.setText("Tracking");
             String jsonArray = gson.toJson(tracking, new TypeToken<ArrayList<Tracking>>() {
             }.getType());
             Log.d("UPDATE", "back2Json: " + jsonArray);
