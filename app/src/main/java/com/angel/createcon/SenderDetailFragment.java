@@ -22,10 +22,9 @@ import android.widget.TextView;
 
 public class SenderDetailFragment extends Fragment {
     EditText conId, sendAcc, custRef, sendName, sendAddr, sendCity,sendPostcode,sendCoName, sendCoNo;
-
     int conid;
 
-    String payterm, custref;
+    String custref;
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
 
     Button complete;
