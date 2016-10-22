@@ -2,6 +2,7 @@ package com.angel.createcon;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,9 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.angel.createcon.POJO.Pickup;
+import com.angel.createcon.NetworkUtils.FcmService;
 import com.angel.createcon.Pickup.DriverPickup;
 import com.angel.createcon.Tracking.Track;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.Gson;
 import com.stormpath.sdk.Stormpath;
 import com.stormpath.sdk.StormpathCallback;
@@ -117,15 +119,19 @@ public class MainActivity extends AppCompatActivity {
         Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
             @Override
             public void onSuccess(UserProfile userProfile) {
-
             }
 
             @Override
             public void onFailure(StormpathError error) {
-                // Show login view
-                startActivity(new Intent(context, StormpathLoginActivity.class));
+                startActivity(new Intent(context, MyStormpathLoginActivity.class));
             }
         });
+    }
+    public void  sendFcmToken(){
+        String refreshedToken = FirebaseInstanceId.getInstance().getToken();
+        Log.d("TOKEN", "Refreshed token: " + refreshedToken);
+        FcmService fcmService = new FcmService(getApplicationContext());
+        fcmService.putToken(FirebaseInstanceId.getInstance().getToken());
     }
 
     @Override
