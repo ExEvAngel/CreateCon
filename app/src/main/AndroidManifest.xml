@@ -18,14 +18,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CreateConActivity" />
-        <activity android:name=".GetConsActivity" />
+        <activity
+            android:name=".CreateConActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".GetConsActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name="com.stormpath.sdk.ui.StormpathLoginActivity"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".Tracking" />
-        <activity android:name=".ConsignmentDetail"></activity>
+        <activity
+            android:name=".Tracking.Track"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".ConsignmentDetail" />
+        <activity
+            android:name=".Park.Park"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".Pickup.DriverPickup" />
+        <activity android:name=".Pickup.PickupDetailActivity"></activity>
     </application>
 
 </manifest>

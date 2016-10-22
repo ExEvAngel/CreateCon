@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?><!--
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="80dp"
@@ -36,4 +36,58 @@
         android:layout_toRightOf="@+id/txt_con_desc"/>
 
 
-</RelativeLayout>
+</RelativeLayout>-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/row_con_item"
+        android:background="#e8e2e3">
+        <RelativeLayout
+            android:id="@+id/activity_get_cons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/conId"
+                android:id="@+id/txt_conid"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/description"
+                android:id="@+id/txt_con_desc"
+                android:layout_below="@+id/txt_conid"
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/value"
+                android:id="@+id/txt_value"
+                android:layout_below="@id/txt_conid"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"
+                />
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+</LinearLayout>

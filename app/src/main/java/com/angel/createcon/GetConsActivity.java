@@ -18,6 +18,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.angel.createcon.Decoration.SimpleDividerItemDecoration;
 import com.angel.createcon.Listeners.ConsignmentLoadListener;
 import com.angel.createcon.app.AppController;
 import com.angel.createcon.Listeners.GetAllConsListener;
@@ -55,30 +56,38 @@ public class GetConsActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        registerForContextMenu(recyclerView);
+        recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
+
 
         gson = new Gson();
-        /*
-        new TaskLoadConsignments(GetConsActivity.this).execute();
-        if (adapter==null) {
-            adapter = new ConsAdapter(arrayList,GetConsActivity.this);
-            recyclerView.setAdapter(adapter);
-        }*/
-
         BackgroundTask backgroundTask = new BackgroundTask(GetConsActivity.this);
-        backgroundTask.getAllCons(new GetAllConsListener() {
-            @Override
-            public void onSuccess(String response) {
+        if(getIntent().hasExtra("PARKCONS")){
+            backgroundTask.getParkedCons(new GetAllConsListener() {
+                @Override
+                public void onSuccess(String response) {
 
-                Log.d("onSuccess", "Response: "+response);
-                ArrayList<Consignment> list = parseResponse(response);
-                updateUI(list);
-                //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
+                    Log.d("onSuccess", "Response: " + response);
+                    ArrayList<Consignment> list = parseResponse(response);
+                    updateUI(list);
+                    //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
+                    Log.d("ONSUCCESS", "ARRAYSIZE: " + arrayList.size());
 
-                Log.d("ONSUCCESS", "ARRAYSIZE: "+arrayList.size());
+                }
+            });
+        }else {
+            backgroundTask.getAllCons(new GetAllConsListener() {
+                @Override
+                public void onSuccess(String response) {
 
-            }
-        });
+                    Log.d("onSuccess", "Response: " + response);
+                    ArrayList<Consignment> list = parseResponse(response);
+                    updateUI(list);
+                    //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
+                    Log.d("ONSUCCESS", "ARRAYSIZE: " + arrayList.size());
+
+                }
+            });
+        }
 
         if(adapter==null){
             adapter = new ConsAdapter(arrayList,GetConsActivity.this);
@@ -90,81 +99,10 @@ public class GetConsActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.my_cons_contextual_menu,menu);
-
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-        //ContextMenuRecyclerView.RecyclerViewContextMenuInfo info = item.getMenuInfo();
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        Toast.makeText(this, " User selected something ", Toast.LENGTH_LONG).show();
-        return super.onContextItemSelected(item);
-    }
-
-    /*
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        listType = new TypeToken<ArrayList<Consignment>>(){}.getType();
-
-        BackgroundTask backgroundTask = new BackgroundTask(GetConsActivity.this);
-        backgroundTask.getAllCons(new GetAllConsListener() {
-            @Override
-            public void onSuccess(String response) {
-                ArrayList<Consignment> list = parseResponse(response);
-                updateUI(list);
-                //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
-
-                Log.d("ONSUCCESS", "ARRAYSIZE: "+arrayList.size());
-
-            }
-        });
-    }*/
 
     public ArrayList<Consignment> parseResponse(String response){
-        /*
-        ArrayList<Consignment> list = new ArrayList<>();
-        try {
-            Consignment con = null;
-            JSONArray jsonArray = new JSONArray(response);
-            for (int i = 0; i<jsonArray.length();i++){
-                JSONObject jsonObjectCon = jsonArray.getJSONObject(i);
-                con = gson.fromJson(jsonObjectCon.toString(), Consignment.class);
-                Log.d("PARSE", "jsonObjectConString: "+jsonObjectCon.toString());
-
-            /* Log.d("PARSE", "parseResponse: "+jsonArray.length());
-            JSONObject jsonObject = jsonArray.getJSONObject(0);
-            for (int i = 0; i<jsonArray.length();i++){
-
-                Consignment con = null;
-
-                Log.d("PARSE", "parseID: "+jsonObject.getInt("conid"));
-                con.setConid(jsonObject.getInt("conid"));
-
-                Log.d("PARSE", "conID: "+con.getConid());
-                con.setDescription(jsonObject.getString("description"));
-
-                list.add(con);
-                this.arrayList = list;
-                Log.d("PARSED", "localarrayList: "+list.size());
-            }
-            Log.d("PARSED", "parsedResponse: "+list.size());
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        //arrayList =gson.fromJson(response,new TypeToken<ArrayList<Consignment>>(){}.getType());
-        //updateUI(arrayList);
-        return list;*/
-
         return gson.fromJson(response,new TypeToken<ArrayList<Consignment>>(){}.getType());
-    }
+        }
 
     public void updateUI(ArrayList<Consignment> consignments){
         this.arrayList = consignments;
@@ -175,51 +113,12 @@ public class GetConsActivity extends AppCompatActivity {
         if (adapter==null) {
             adapter = new ConsAdapter(consignments,GetConsActivity.this);
             recyclerView.setAdapter(adapter);
-            registerForContextMenu(recyclerView);
         }else{
             adapter.setConsignments(consignments);
             adapter.notifyDataSetChanged();
-            registerForContextMenu(recyclerView);
         }
 
         Log.d("UPDATE", "localArrayList: "+arrayList.size());
     }
-    private void  getAllCons() {
-        String tag_json_obj = "json_obj_req";
-        //showProgressDialog();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, json_url,null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        parseResponse(response.toString());
-                        //hideProgressDialog();
-                        //Toast.makeText(context, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
-                        //((TextView)((Activity)context).getWindow().getDecorView().findViewById(R.id.txt_my_con)).setText(arrayList.get(0).getSendname());
-                        /*int count = 0;
-                            while(count<response.length()){
-                                try {
-                                    JSONObject jsonObject = response.getJSONObject(count);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-                                Consignment con;
-
-
-                                arrayList.add(con);
-                                count++;
-                            }*/
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //Toast.makeText(context, "Error...", Toast.LENGTH_SHORT).show();
-                error.printStackTrace();
-                //hideProgressDialog();
-            }
-        });
-
-        AppController.getInstance().addToRequestQueue(jsonArrayRequest);
-    }
-
 
 }

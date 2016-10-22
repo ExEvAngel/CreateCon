@@ -213,23 +213,7 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
         Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
             @Override
             public void onSuccess(UserProfile userProfile) {
-                userid =userProfile.getEmail();
-            }
-
-            @Override
-            public void onFailure(StormpathError error) {
-                // Show login view
-            }
-        });
-        Date today = Calendar.getInstance().getTime();
-        con = new Consignment(0,conid, payterm, custref,
-                sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno,
-                recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno,
-                service, opt, dg, nopiece, description,  value, currency, userid, false,today );
-        Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
-            @Override
-            public void onSuccess(UserProfile userProfile) {
-                con.setUserid(userProfile.getEmail());
+                createCon(userProfile.getEmail());
             }
 
             @Override
@@ -269,13 +253,13 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
         con.setParked(false);
         con.setDg(dg);
         con.setCreationdate(today);*/
-
+        /*
         BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
         backgroundTask.createCon(con);
 
         Intent intent = new Intent(CreateConActivity.this, MainActivity.class);
         intent.putExtra("NEW_CON",con);
-        startActivity(intent);
+        startActivity(intent);*/
         /*con.setId(null);
         con.setConid(conid);
         con.setNopiece(nopiece);
@@ -305,5 +289,21 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
         con.setReccontactname(reccontactname);
         con.setReccontactno(reccontactno);
         */
+    }
+
+    public void createCon(String email){
+
+
+        creationdate = Calendar.getInstance().getTime();
+        con = new Consignment(0,conid, payterm, custref,
+                sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno,
+                recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno,
+                service, opt, dg, nopiece, description,  value, currency, email, false,creationdate );
+        BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
+        backgroundTask.createCon(con);
+
+        Intent intent = new Intent(CreateConActivity.this, MainActivity.class);
+        intent.putExtra("NEW_CON",con);
+        startActivity(intent);
     }
 }

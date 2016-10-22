@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.angel.createcon.POJO.Pickup;
+import com.angel.createcon.Pickup.DriverPickup;
+import com.angel.createcon.Tracking.Track;
 import com.google.gson.Gson;
 import com.stormpath.sdk.Stormpath;
 import com.stormpath.sdk.StormpathCallback;
@@ -24,7 +27,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button createCon, getCon;
+    Button createCon, getCon, tracking, driverPickup,getParkedCons;
     EditText mNote;
     Context context;
     private OkHttpClient okHttpClient;
@@ -71,9 +74,40 @@ public class MainActivity extends AppCompatActivity {
         getCon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //Intent intent = new Intent(MainActivity.this,GetConsActivity.class);
+                //intent.putExtra("PARKCONS",false);
                 startActivity(new Intent(MainActivity.this,GetConsActivity.class));
             }
         });
+
+        tracking = (Button) findViewById(R.id.tracking);
+        tracking.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Track.class));
+            }
+        });
+
+        driverPickup = (Button) findViewById(R.id.driver_pickup);
+        driverPickup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, DriverPickup.class));
+            }
+        });
+
+        getParkedCons = (Button) findViewById(R.id.getParked_cons);
+        getParkedCons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,GetConsActivity.class);
+                intent.putExtra("PARKCONS",true);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @Override
