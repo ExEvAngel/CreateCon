@@ -123,6 +123,7 @@ public class Pickup implements Parcelable {
         dest.writeString(sendaddress);
         dest.writeString(sendcity);
         dest.writeString(sendpostcode);
+        dest.writeString(driver);
 
     }
     private Pickup(Parcel in) {
@@ -135,6 +136,7 @@ public class Pickup implements Parcelable {
         this.sendaddress = in.readString();
         this.sendcity = in.readString();
         this.sendpostcode = in.readString();
+        this.driver = in.readString();
     }
     public static final Creator<Pickup> CREATOR = new Creator<Pickup>() {
         @Override

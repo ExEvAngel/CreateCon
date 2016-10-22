@@ -14,7 +14,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/pickup"
+        android:textStyle="bold"
+        android:textSize="21dp"
         android:id="@+id/txt_driver_pickup"
         android:layout_gravity="center"
         android:gravity="center"/>

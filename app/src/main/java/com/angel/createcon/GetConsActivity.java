@@ -60,21 +60,34 @@ public class GetConsActivity extends AppCompatActivity {
 
 
         gson = new Gson();
-
-
         BackgroundTask backgroundTask = new BackgroundTask(GetConsActivity.this);
-        backgroundTask.getAllCons(new GetAllConsListener() {
-            @Override
-            public void onSuccess(String response) {
+        if(getIntent().hasExtra("PARKCONS")){
+            backgroundTask.getParkedCons(new GetAllConsListener() {
+                @Override
+                public void onSuccess(String response) {
 
-                Log.d("onSuccess", "Response: "+response);
-                ArrayList<Consignment> list = parseResponse(response);
-                updateUI(list);
-                //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
-                Log.d("ONSUCCESS", "ARRAYSIZE: "+arrayList.size());
+                    Log.d("onSuccess", "Response: " + response);
+                    ArrayList<Consignment> list = parseResponse(response);
+                    updateUI(list);
+                    //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
+                    Log.d("ONSUCCESS", "ARRAYSIZE: " + arrayList.size());
 
-            }
-        });
+                }
+            });
+        }else {
+            backgroundTask.getAllCons(new GetAllConsListener() {
+                @Override
+                public void onSuccess(String response) {
+
+                    Log.d("onSuccess", "Response: " + response);
+                    ArrayList<Consignment> list = parseResponse(response);
+                    updateUI(list);
+                    //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
+                    Log.d("ONSUCCESS", "ARRAYSIZE: " + arrayList.size());
+
+                }
+            });
+        }
 
         if(adapter==null){
             adapter = new ConsAdapter(arrayList,GetConsActivity.this);

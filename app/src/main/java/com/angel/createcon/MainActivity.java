@@ -27,7 +27,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 
 public class MainActivity extends AppCompatActivity {
-    Button createCon, getCon, tracking, driverPickup;
+    Button createCon, getCon, tracking, driverPickup,getParkedCons;
     EditText mNote;
     Context context;
     private OkHttpClient okHttpClient;
@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity {
         getCon.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                //Intent intent = new Intent(MainActivity.this,GetConsActivity.class);
+                //intent.putExtra("PARKCONS",false);
                 startActivity(new Intent(MainActivity.this,GetConsActivity.class));
             }
         });
@@ -92,6 +94,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, DriverPickup.class));
+            }
+        });
+
+        getParkedCons = (Button) findViewById(R.id.getParked_cons);
+        getParkedCons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,GetConsActivity.class);
+                intent.putExtra("PARKCONS",true);
+                startActivity(intent);
             }
         });
 

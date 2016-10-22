@@ -30,7 +30,7 @@ public class DriverPickup extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     ArrayList<Pickup> arrayList = new ArrayList<>();
-    TextView txtView;
+    TextView txt_driverPickup;
     PickupUtil pickupUtil;
     Gson gson;
     @Override
@@ -43,7 +43,7 @@ public class DriverPickup extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new SimpleDividerItemDecoration(this));
 
-
+        txt_driverPickup = (TextView) findViewById(R.id.txt_driver_pickup);
         gson = new Gson();
         Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
             @Override
@@ -69,8 +69,9 @@ public class DriverPickup extends AppCompatActivity {
                 Log.d("onSuccess", "Response: "+response);
                 ArrayList<Pickup> list = parseResponse(response);
                 if(list.size()==0) {
-                    //txt_track.setText("No Pickup ");
+                    txt_driverPickup.setText("No Scheduled Driver Pickups ");
                 }else {
+                    txt_driverPickup.setText("Scheduled Pickup ");
                     updateUI(list);
                 }
                 //Toast.makeText(GetConsActivity.this, "Consignments:"+arrayList.size(), Toast.LENGTH_LONG).show();
@@ -88,6 +89,9 @@ public class DriverPickup extends AppCompatActivity {
 
     public void updateUI(ArrayList<Pickup> pickup){
         this.arrayList = pickup;
+        for(int i = 0; i<arrayList.size();i++){
+            Log.d("PICKUP", "Driver:"+arrayList.get(i).getDriver());
+        }
         String jsonArray = gson.toJson(pickup, new TypeToken<ArrayList<Pickup>>() {
         }.getType());
         //Log.d("UPDATE", "back2Json: " + jsonArray);

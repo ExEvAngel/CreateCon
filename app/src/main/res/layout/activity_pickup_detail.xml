@@ -305,7 +305,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/pickup"
+        android:id="@+id/acceptPickup"
         android:text="@string/pickUp"/>
     <Button
         android:layout_width="match_parent"

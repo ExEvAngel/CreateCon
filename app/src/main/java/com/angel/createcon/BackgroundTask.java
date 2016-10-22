@@ -107,9 +107,6 @@ public class BackgroundTask{
                 .appendPath("api")
                 .appendPath("cons");
         Uri uri = builder.build();
-
-
-        String url = "http://ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000/api/cons";
         String json = gson.toJson(consignment);
         JSONObject jsonObject = null;
         try {
@@ -148,5 +145,42 @@ public class BackgroundTask{
     }
 
 
+    public void getParkedCons(final GetAllConsListener callBack) {
+        String tag_json_obj = "json_obj_req";
+        //showProgressDialog();
 
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http").encodedAuthority("ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000")
+                .appendPath("api")
+                .appendPath("cons")
+                .appendPath("parked");
+        Uri uri = builder.build();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, uri.toString(),null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        callBack.onSuccess(response.toString());
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Toast.makeText(context, "Error...", Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+                //hideProgressDialog();
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept","application/json");
+                headers.put("Authorization", "Bearer " + Stormpath.accessToken());
+                return headers;
+
+            }
+        };
+
+
+        appController.addToRequestQueue(jsonArrayRequest);
+    }
 }
