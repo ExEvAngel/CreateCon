@@ -7,28 +7,47 @@
     android:layout_height="300dp">
 
         <EditText
+            android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/acc_id"
+            android:id="@+id/con_id"
+            android:hint="@string/connote"
+            android:inputType="number"
+            android:maxLength="9"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/send_acc"
             android:hint="@string/acc"
+            android:inputType="number"
+            android:maxLength="9"
             android:lines="1"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/cust_ref"
             android:hint="@string/custRef"
-            android:lines="1"/>
+            android:inputType="textShortMessage"
+            android:maxLength="32"
+            />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_name"
             android:hint="@string/name"
+            android:inputType="textPersonName"
+            android:maxLength="64"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_address"
             android:hint="@string/address"
+            android:inputType="textPostalAddress"
+            android:maxLength="92"
             />
         <EditText
             android:layout_weight="2"
@@ -36,6 +55,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/send_city"
             android:hint="@string/city"
+            android:inputType="textShortMessage"
+            android:maxLength="32"
             />
         <EditText
             android:layout_weight="1"
@@ -43,24 +64,29 @@
             android:layout_height="wrap_content"
             android:id="@+id/send_postcode"
             android:hint="@string/postcode"
+            android:inputType="textShortMessage"
+            android:maxLength="10"
             />
-        <EditText
+        <Spinner
+            android:id="@+id/sender_country_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/send_country"
-            android:hint="@string/country"
+            android:layout_height="wrap_content" />
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_contact_name"
             android:hint="@string/contactName"
+            android:inputType="textPersonName"
+            android:maxLength="32"
             />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/send_contact_no"
             android:hint="@string/contactNo"
+            android:inputType="phone"
+            android:maxLength="26"
             />
         <Button
             android:layout_width="match_parent"

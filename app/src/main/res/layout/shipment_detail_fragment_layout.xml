@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <Spinner
+            android:id="@+id/pay_term"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        />
+
+        <Spinner
+            android:id="@+id/service"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        />
+        <Spinner
+            android:id="@+id/opt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        />
+        <RadioGroup
+            android:id="@+id/dg_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:tag="@string/dg">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/dg_yes"
+                android:id="@+id/dg_yes"/>
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dg_no"
+                android:text="@string/dg_no"/>
+        </RadioGroup>
+        <EditText
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/description"
+            android:hint="@string/description"
+            android:inputType="textLongMessage"
+            android:maxLength="92"
+            />
+        <EditText
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/no_piece"
+            android:hint="@string/noPiece"
+            android:inputType="number"
+            android:maxLength="2"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/value"
+            android:hint="@string/value"
+            android:inputType="numberDecimal"
+            android:maxLength="9"
+            />
+        <Spinner
+            android:id="@+id/currency"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            android:id="@+id/submit_con"
+            />
+
+
+    </LinearLayout>
+</ScrollView>

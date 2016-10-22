@@ -2,6 +2,7 @@ package com.angel.createcon;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -9,18 +10,18 @@ import java.util.Date;
  */
 
 public class Consignment implements Parcelable {
-    int id, conid, nopiece;
-    double value;
+    int  nopiece,conid;
+    String value,id;
     String payterm, custref, service, opt, description,currency, userid;
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
     String recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno;
     boolean dg, parked;
     Date creationdate;
 
-    public Consignment(int id, int conid, String payterm, String custref,
+    public Consignment(String id, int conid, String payterm, String custref,
                        String sendacc, String sendname, String sendaddress, String sendcity, String sendpostcode, String sendcountry, String sendcontactname, String sendcontactno,
                        String recacc, String recname, String recaddress, String reccity, String recpostcode, String reccountry, String reccontactname, String reccontactno,
-                       String service, String opt, boolean dg, int nopiece, String description, double  value, String currency, String userid, boolean parked, Date creationdate){
+                       String service, String opt, boolean dg, int nopiece, String description, String  value, String currency, String userid, boolean parked, Date creationdate){
         this.setId(id);
         this.setConid(conid);
         this.setPayterm(payterm);
@@ -54,11 +55,11 @@ public class Consignment implements Parcelable {
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -78,11 +79,11 @@ public class Consignment implements Parcelable {
         this.nopiece = nopiece;
     }
 
-    public double getValue() {
+    public String getValue() {
         return value;
     }
 
-    public void setValue(double value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
@@ -301,10 +302,11 @@ public class Consignment implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
+        dest.writeString(id);
         dest.writeInt(conid);
         dest.writeString(payterm);
         dest.writeString(custref);
+        dest.writeString(sendname);
         dest.writeString(sendaddress);
         dest.writeString(sendcity);
         dest.writeString(sendpostcode);
@@ -324,7 +326,7 @@ public class Consignment implements Parcelable {
         dest.writeByte((byte) (dg ? 1 : 0));     //if dg == true, byte == 1
         dest.writeInt(nopiece);
         dest.writeString(description);
-        dest.writeDouble(value);
+        dest.writeString(value);
         dest.writeString(currency);
         dest.writeString(userid);
         dest.writeByte((byte) (parked ? 1 : 0));     //if parked == true, byte == 1
@@ -345,10 +347,11 @@ public class Consignment implements Parcelable {
     };
 
     private Consignment (Parcel in) {
-        id=in.readInt();
+        id=in.readString();
         conid=in.readInt();
         payterm=in.readString();
         custref=in.readString();
+        sendname=in.readString();
         sendaddress=in.readString();
         sendcity=in.readString();
         sendpostcode=in.readString();
@@ -368,7 +371,7 @@ public class Consignment implements Parcelable {
         dg=in.readByte() != 0;     //dg == true if byte != 0
         nopiece=in.readInt();
         description=in.readString();
-        value=in.readDouble();
+        value=in.readString();
         currency=in.readString();
         userid=in.readString();
         parked= in.readByte()!=0;     //parked == true if byte != 0
