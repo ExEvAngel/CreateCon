@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_logout) {
 
             Stormpath.logout();
-            startActivity(new Intent(context, StormpathLoginActivity.class));
+            startActivity(new Intent(context, MyStormpathLoginActivity.class));
 
 
             return true;

@@ -83,6 +83,10 @@ public class ConsignmentDetail extends AppCompatActivity {
                 }
             });
         }
+
+        if(getIntent().hasExtra("CID")){
+
+        }
     }
 
     public void parkUnparkActivity(){
