@@ -10,7 +10,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.angel.createcon.FileHandler.File">
+    tools:context="com.angel.createcon.FileHandler.FileUpload">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -21,12 +21,20 @@
             android:layout_gravity="center"/>
     </LinearLayout>
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="0dp"
         app:srcCompat="@android:drawable/ic_menu_gallery"
         android:id="@+id/imageView"
         android:layout_gravity="center"
         android:layout_weight="1" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textShortMessage"
+        android:id="@+id/file_name"
+        android:hint="@string/file_name"
+        android:visibility="gone"
+        android:layout_gravity="center_horizontal"/>
     <Button
         android:text="@string/upload"
         android:layout_width="wrap_content"

@@ -143,6 +143,43 @@ public class BackgroundTask{
         Log.d("ACCESSTOKEN", Stormpath.accessToken());
         AppController.getInstance().addToRequestQueue(jsonObjectRequest);
     }
+    public void getCon(int id,final GetAllConsListener callBack){
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("http").encodedAuthority("ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000")
+                .appendPath("api")
+                .appendPath("cons")
+                .appendPath(String.valueOf(id));
+        Uri uri = builder.build();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, uri.toString(),null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        callBack.onSuccess(response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        //Log.d("Error.Response", error);
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Accept","application/json");
+                headers.put("Authorization", "Bearer " + Stormpath.accessToken());
+                return headers;
+
+            }
+        };
+        Log.d("ACCESSTOKEN", Stormpath.accessToken());
+        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
+    }
 
 
     public void getParkedCons(final GetAllConsListener callBack) {

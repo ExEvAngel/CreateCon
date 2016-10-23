@@ -8,7 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.angel.createcon.FileHandler.File;
+import com.angel.createcon.FileHandler.FileUpload;
+import com.angel.createcon.Listeners.GetAllConsListener;
 import com.angel.createcon.Park.Park;
 import com.angel.createcon.Tracking.Track;
 import com.google.gson.Gson;
@@ -18,6 +19,7 @@ public class ConsignmentDetail extends AppCompatActivity {
     Gson gson;
     TextView conId, sendacc, sendName, sendAddr, sendCity, sendPc, sendCo, sendContactName,sendContactNo;
     Button parkUnpark, track, upload;
+    String cid, conid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,7 @@ public class ConsignmentDetail extends AppCompatActivity {
             upload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(ConsignmentDetail.this, File.class);
+                    Intent intent = new Intent(ConsignmentDetail.this, FileUpload.class);
                     intent.putExtra("CON",con);
                     String json = gson.toJson(con);
                     Log.d("CON2TRACK",json);
@@ -97,10 +99,25 @@ public class ConsignmentDetail extends AppCompatActivity {
                 }
             });
         }
-
         if(getIntent().hasExtra("CID")){
-
+            Bundle args  =  getIntent().getExtras();
+            int cid = args.getInt("CID");
+            BackgroundTask backgroundTask = new BackgroundTask(ConsignmentDetail.this);
+            backgroundTask.getCon(cid, new GetAllConsListener() {
+                @Override
+                public void onSuccess(String response) {
+                    con = parseResponse(response);
+                }
+            });
         }
+    }
+
+    public Consignment parseResponse(String response){
+        return gson.fromJson(response, Consignment.class);
+    }
+
+    public void updateUI(){
+        
     }
 
     public void parkUnparkActivity(){

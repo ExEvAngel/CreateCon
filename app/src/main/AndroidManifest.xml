@@ -49,7 +49,7 @@
             android:parentActivityName=".MainActivity" />
         <activity android:name=".Pickup.DriverPickup" />
         <activity android:name=".Pickup.PickupDetailActivity" />
-        <activity android:name=".FileHandler.File"></activity>
+        <activity android:name=".FileHandler.FileUpload"></activity>
     </application>
 
 </manifest>

@@ -80,6 +80,7 @@
     <string name="upload_doc">Upload Documents</string>
     <string name="upload">Upload</string>
     <string name="upload_heading">Upload Image</string>
+    <string name="file_name">File Name</string>
 
 
     <string-array name="pay_term">
