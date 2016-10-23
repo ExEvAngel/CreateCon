@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.angel.createcon.FileHandler.File;
 import com.angel.createcon.Park.Park;
 import com.angel.createcon.Tracking.Track;
 import com.google.gson.Gson;
@@ -15,13 +16,14 @@ import com.google.gson.Gson;
 public class ConsignmentDetail extends AppCompatActivity {
     Consignment con;
     Gson gson;
+    TextView conId, sendacc, sendName, sendAddr, sendCity, sendPc, sendCo, sendContactName,sendContactNo;
+    Button parkUnpark, track, upload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_consignment_detail);
-        TextView conId, sendacc, sendName, sendAddr, sendCity, sendPc, sendCo, sendContactName,sendContactNo;
-        Button parkUnpark, track;
+
         gson = new Gson();
 
         if(getIntent().hasExtra("CON")){
@@ -80,6 +82,18 @@ public class ConsignmentDetail extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     track();
+                }
+            });
+
+            upload = (Button) findViewById(R.id.file_handler);
+            upload.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(ConsignmentDetail.this, File.class);
+                    intent.putExtra("CON",con);
+                    String json = gson.toJson(con);
+                    Log.d("CON2TRACK",json);
+                    startActivity(intent);
                 }
             });
         }

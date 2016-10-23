@@ -307,6 +307,12 @@
         android:id="@+id/park_unpark"
         android:text="@string/park_unpark"
         android:layout_below="@+id/track_btn"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/file_handler"
+        android:text="@string/upload_doc"
+        android:layout_below="@+id/park_unpark"/>
 
 
 </RelativeLayout>

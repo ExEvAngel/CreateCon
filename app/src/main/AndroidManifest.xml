@@ -18,18 +18,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <service android:name=".MyFirebaseInstanceIDService">
             <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-        <service
-            android:name=".MyFirebaseMessagingService"
-            >
+        <service android:name=".MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
         <activity
             android:name=".CreateConActivity"
             android:parentActivityName=".MainActivity" />
@@ -48,7 +48,8 @@
             android:name=".Park.Park"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".Pickup.DriverPickup" />
-        <activity android:name=".Pickup.PickupDetailActivity"></activity>
+        <activity android:name=".Pickup.PickupDetailActivity" />
+        <activity android:name=".FileHandler.File"></activity>
     </application>
 
 </manifest>
