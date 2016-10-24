@@ -29,6 +29,6 @@ public class MyStormpathLoginActivity extends StormpathLoginActivity {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("LOGINTOKEN", "Refreshed token: " + refreshedToken);
         FcmService fcmService = new FcmService(getApplicationContext());
-        fcmService.putToken(FirebaseInstanceId.getInstance().getToken());
+        fcmService.postToken(FirebaseInstanceId.getInstance().getToken());
     }
 }

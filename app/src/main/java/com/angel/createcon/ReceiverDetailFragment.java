@@ -28,6 +28,7 @@ public class ReceiverDetailFragment extends Fragment {
     Spinner recCountry;
     ReceiverDetailFragment.OnCompleteReceiverDetails onCompleteReceiverDetails;
     AlertDialog.Builder builder;
+    Consignment con;
 
     @Override
     public void onAttach(Context context) {
@@ -76,6 +77,20 @@ public class ReceiverDetailFragment extends Fragment {
         recPostcode = (EditText) view.findViewById(R.id.rec_postcode);
         recCoName = (EditText) view.findViewById(R.id.rec_contact_name);
         recCoNo = (EditText) view.findViewById(R.id.rec_contact_no);
+
+        Bundle args = getArguments();
+        if (args.containsKey("CON")) {
+            con = args.getParcelable("CON");
+            int spinnerPosition = adapter.getPosition(con.getReccountry());
+            recCountry.setSelection(spinnerPosition);
+            recAcc.setText(con.getRecacc());
+            recName.setText(con.getRecname());
+            recAddr.setText(con.getRecaddress());
+            recCity.setText(con.getReccity());
+            recPostcode.setText(con.getRecpostcode());
+            recCoName.setText(con.getReccontactname());
+            recCoNo.setText(con.getReccontactno());
+        }
 
         builder = new AlertDialog.Builder(getActivity());
 

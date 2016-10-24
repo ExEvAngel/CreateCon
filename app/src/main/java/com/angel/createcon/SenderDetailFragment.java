@@ -31,6 +31,8 @@ public class SenderDetailFragment extends Fragment {
     Spinner sendCountry;
     OnCompleteSendDetails onCompleteSendDetails;
     AlertDialog.Builder builder;
+
+    Consignment con;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -82,6 +84,22 @@ public class SenderDetailFragment extends Fragment {
         sendPostcode = (EditText) view.findViewById(R.id.send_postcode);
         sendCoName = (EditText) view.findViewById(R.id.send_contact_name);
         sendCoNo = (EditText) view.findViewById(R.id.send_contact_no);
+
+        Bundle args = getArguments();
+        if (args.containsKey("CON")) {
+            con = args.getParcelable("CON");
+            spinnerPosition = adapter.getPosition(con.getSendcountry());
+            sendCountry.setSelection(spinnerPosition);
+            conId.setText(String.valueOf(con.getConid()));
+            sendAcc.setText(con.getSendacc());
+            custRef.setText(con.getCustref());
+            sendName.setText(con.getSendname());
+            sendAddr.setText(con.getSendaddress());
+            sendCity.setText(con.getSendcity());
+            sendPostcode.setText(con.getSendpostcode());
+            sendCoName.setText(con.getSendcontactname());
+            sendCoNo.setText(con.getSendcontactno());
+        }
 
 
         builder = new AlertDialog.Builder(getActivity());

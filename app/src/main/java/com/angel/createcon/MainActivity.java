@@ -115,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
             @Override
             public void onSuccess(UserProfile userProfile) {
@@ -126,12 +125,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(context, MyStormpathLoginActivity.class));
             }
         });
+        // checks for the payload sent by notification
+        if(getIntent().getExtras()!=null){
+            Bundle args  =  getIntent().getExtras();
+            Intent intent = new Intent(MainActivity.this, ConsignmentDetail.class);
+            intent.putExtras(args);
+            startActivity(intent);
+            Log.d("MAINACTARGS", args.toString());
+        }
     }
     public void  sendFcmToken(){
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("TOKEN", "Refreshed token: " + refreshedToken);
         FcmService fcmService = new FcmService(getApplicationContext());
-        fcmService.putToken(FirebaseInstanceId.getInstance().getToken());
+        fcmService.postToken(FirebaseInstanceId.getInstance().getToken());
     }
 
     @Override

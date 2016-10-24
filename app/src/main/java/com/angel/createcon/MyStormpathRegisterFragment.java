@@ -57,6 +57,6 @@ public class MyStormpathRegisterFragment extends StormpathRegisterFragment {
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
         Log.d("ONREGISTERTOKEN", "Refreshed token: " + refreshedToken);
         FcmService fcmService = new FcmService(getActivity());
-        fcmService.postToken(email,FirebaseInstanceId.getInstance().getToken());
+        fcmService.putToken(email,FirebaseInstanceId.getInstance().getToken());
     }
 }

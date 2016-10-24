@@ -35,7 +35,7 @@ public class FcmService {
         gson = new Gson();
     }
 
-    public void putToken(String token) {
+    public void postToken(String token) {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http").encodedAuthority("ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000")
                 .appendPath("api")
@@ -51,7 +51,7 @@ public class FcmService {
             e.printStackTrace();
         }
         //showProgressDialog();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),jsonObject,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, uri.toString(),jsonObject,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -80,7 +80,7 @@ public class FcmService {
         AppController.getInstance().addToRequestQueue(jsonObjectRequest);
     }
 
-    public void postToken(String email, String token) {
+    public void putToken(String email, String token) {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http").encodedAuthority("ec2-52-64-220-153.ap-southeast-2.compute.amazonaws.com:3000")
                 .appendPath("api")

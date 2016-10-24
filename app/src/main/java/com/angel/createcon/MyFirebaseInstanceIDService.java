@@ -49,7 +49,5 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     private void sendRegistrationToServer(String token) {
             String refreshedToken = FirebaseInstanceId.getInstance().getToken();
             Log.d("FIREIDSERV", "Refreshed token: " + refreshedToken);
-            FcmService fcmService = new FcmService(getApplicationContext());
-            fcmService.putToken(FirebaseInstanceId.getInstance().getToken());
     }
 }

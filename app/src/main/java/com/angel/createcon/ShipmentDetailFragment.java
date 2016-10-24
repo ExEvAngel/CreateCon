@@ -31,6 +31,7 @@ public class ShipmentDetailFragment extends Fragment{
     Spinner payTerm, Service, option, Currency;
     RadioGroup dgGroup;
     AlertDialog.Builder builder;
+    Consignment con;
 
     Button submit;
 
@@ -105,6 +106,28 @@ public class ShipmentDetailFragment extends Fragment{
             }
         });
         dgGroup.check(R.id.dg_no);
+
+        Bundle args = getArguments();
+        if (args.containsKey("CON")) {
+            con = args.getParcelable("CON");
+            int spinnerPosition = payAdapter.getPosition(con.getPayterm());
+            payTerm.setSelection(spinnerPosition);
+            spinnerPosition = serviceAdapter.getPosition(con.getService());
+            Service.setSelection(spinnerPosition);
+            spinnerPosition = optAdapter.getPosition(con.getOpt());
+            option.setSelection(spinnerPosition);
+            spinnerPosition = currencyAdapter.getPosition(con.getCurrency());
+            Currency.setSelection(spinnerPosition);
+
+            if(con.isDg()){
+                dgGroup.check(R.id.dg_yes);
+            }else{
+                dgGroup.check(R.id.dg_no);
+            }
+            noPiece.setText(String.valueOf(con.getNopiece()));
+            desc.setText(con.getDescription());
+            Value.setText(String.valueOf(con.getValue()));
+        }
 
         builder = new AlertDialog.Builder(getActivity());
 

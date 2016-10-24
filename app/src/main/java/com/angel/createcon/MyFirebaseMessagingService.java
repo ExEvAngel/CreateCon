@@ -51,18 +51,21 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         }
 
-        Intent intent = new Intent(this, MainActivity.class);
+        String click_action = remoteMessage.getNotification().getClickAction();
+        Intent intent = new Intent(click_action);
+        //Intent intent = new Intent(this, ConsignmentDetail.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         // Check if message contains a data payload.
-        Map<String,String> condetail;
+        Map<String,String> condetail = remoteMessage.getData();
         if (remoteMessage.getData().size() > 0) {
             Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-            condetail = remoteMessage.getData();
-            int id = Integer.parseInt(condetail.get("id"));
-            int conid = Integer.parseInt(condetail.get("conid"));
-            intent.putExtra("CID",id);
-            intent.putExtra("CONID", conid);
+
         }
+
+        int id = Integer.parseInt(condetail.get("id"));
+        int conid = Integer.parseInt(condetail.get("conid"));
+        intent.putExtra("id",id);
+        intent.putExtra("conid", conid);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);

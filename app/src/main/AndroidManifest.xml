@@ -14,6 +14,8 @@
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="com.angel.createcon.ConsignmentDetail_TARGETNOTIFICATION"/>
+                <category android:name="android.intent.category.DEFAULT"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -43,13 +45,16 @@
         <activity
             android:name=".Tracking.Track"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".ConsignmentDetail" />
+        <activity android:name=".ConsignmentDetail"
+            android:parentActivityName=".MainActivity">
+        </activity>
         <activity
             android:name=".Park.Park"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".Pickup.DriverPickup" />
         <activity android:name=".Pickup.PickupDetailActivity" />
-        <activity android:name=".FileHandler.FileUpload"></activity>
+        <activity android:name=".FileHandler.FileUpload"
+            android:parentActivityName=".ConsignmentDetail"></activity>
     </application>
 
 </manifest>
