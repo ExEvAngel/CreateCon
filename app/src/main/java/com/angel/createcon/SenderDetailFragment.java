@@ -86,8 +86,9 @@ public class SenderDetailFragment extends Fragment {
         sendCoNo = (EditText) view.findViewById(R.id.send_contact_no);
 
         Bundle args = getArguments();
-        if (args.containsKey("CON")) {
-            con = args.getParcelable("CON");
+        Log.d("SENDFRAG", args.toString());
+        if (!args.isEmpty()) {
+            con = args.getParcelable("EDITCON");
             spinnerPosition = adapter.getPosition(con.getSendcountry());
             sendCountry.setSelection(spinnerPosition);
             conId.setText(String.valueOf(con.getConid()));
@@ -101,16 +102,12 @@ public class SenderDetailFragment extends Fragment {
             sendCoNo.setText(con.getSendcontactno());
         }
 
-
-        builder = new AlertDialog.Builder(getActivity());
-
         complete = (Button) view.findViewById(R.id.sender_complete);
         complete.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v) {
 
                 String con_id_string = conId.getText().toString();
-                conid = Integer.parseInt(con_id_string);
                 sendacc = sendAcc.getText().toString();
                 custref = custRef.getText().toString();
                 sendname = sendName.getText().toString();
@@ -122,10 +119,9 @@ public class SenderDetailFragment extends Fragment {
                 sendcontactno = sendCoNo.getText().toString();
 
                 if (con_id_string.equals("")||sendname.equals("")||sendaddress.equals("")||sendcity.equals("")||sendpostcode.equals("")||sendcountry.equals("")){
-                    builder.setTitle("Incomplete Fields");
-                    builder.setMessage("Please fill in all the required fields");
-                    builder.show();
+                    displayAlert();
                 } else{
+                    conid = Integer.parseInt(con_id_string);
                     onCompleteSendDetails.sendConId(conid);
                     onCompleteSendDetails.sendAccId(sendacc);
                     onCompleteSendDetails.customerReference(custref);
@@ -145,13 +141,14 @@ public class SenderDetailFragment extends Fragment {
         return view;
     }
 
-    public void displayAlert(final String code)
+    public void displayAlert()
     {
+        builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Incomplete Fields");
+        builder.setMessage("Please fill in all the required fields");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (code.equals("input_error")){
-                }
             }
         });
         AlertDialog alertDialog = builder.create();

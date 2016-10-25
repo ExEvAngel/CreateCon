@@ -177,7 +177,7 @@ public class UnsenableOperations{
             jsonObject = new JSONObject(json);
             jsonObject.put("cid", pickup.getCid());
             jsonObject.put("conid",pickup.getConid());
-            jsonObject.put("userid", tracking.getUserId());
+            jsonObject.put("userid", tracking.getUserid());
             jsonObject.put("remarks", tracking.getRemarks());
         } catch (JSONException e) {
             e.printStackTrace();

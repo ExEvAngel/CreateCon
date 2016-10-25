@@ -12,8 +12,8 @@
     <string name="track">Track</string>
 
     <string name="conId">Consignment No</string>
-    <string name="payterm">Sender or Receiver</string>
-    <string name="custRef">Customer Reference</string>
+    <string name="payterm">PayTerms</string>
+    <string name="custRef">Cust Ref</string>
     <string name="sendAcc">Sender Account</string>
     <string name="sendName">Sender Name</string>
     <string name="sendAddress">Sender Address</string>
@@ -82,6 +82,10 @@
     <string name="upload_heading">Upload Image</string>
     <string name="file_name">File Name</string>
     <string name="edit_con">Edit Consignment</string>
+    <string name="download">Download</string>
+    <string name="connumber">Con Number</string>
+    <string name="sender_details">Sender Details</string>
+    <string name="status">Status</string>
 
 
     <string-array name="pay_term">

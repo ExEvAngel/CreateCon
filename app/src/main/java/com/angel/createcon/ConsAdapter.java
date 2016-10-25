@@ -50,12 +50,13 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder( MyViewHolder holder, int position) {
-        String conid = "Consignment: "+String.valueOf(arrayList.get(position).getConid());
-        String description = "Description: "+String.valueOf(arrayList.get(position).getDescription());
-        String value = "Value: "+String.valueOf(arrayList.get(position).getValue())+" "+String.valueOf(arrayList.get(position).getCurrency());
+        String conid = String.valueOf(arrayList.get(position).getConid());
+        String description =String.valueOf(arrayList.get(position).getDescription());
+        String value = String.valueOf(arrayList.get(position).getValue())+" "+String.valueOf(arrayList.get(position).getCurrency());
         holder.conid.setText(conid);
         holder.description.setText(description);
         holder.value.setText(value);
+        holder.date.setText(arrayList.get(position).getCreationdate().toString());
         if(arrayList.get(position).isParked()){
             holder.row_con_item.setBackgroundColor(Color.RED);
         }else{
@@ -75,7 +76,7 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        TextView conid,description, value;
+        TextView conid,description, value, date;
         CardView row_con_item;
         ArrayList<Consignment> consignments = new ArrayList<Consignment>();
         Context ctx;
@@ -88,6 +89,7 @@ public class ConsAdapter extends RecyclerView.Adapter<ConsAdapter.MyViewHolder> 
             description = (TextView) itemView.findViewById(R.id.txt_con_desc);
             value = (TextView) itemView.findViewById(R.id.txt_value);
             row_con_item = (CardView) itemView.findViewById(R.id.row_con_item);
+            date = (TextView) itemView.findViewById(R.id.txt_date);
 
         }
 

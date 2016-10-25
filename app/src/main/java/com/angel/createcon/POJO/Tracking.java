@@ -11,16 +11,16 @@ import java.util.Date;
  */
 
 public class Tracking implements Parcelable{
-    private String status, remarks, userId, depot;
+    private String status, remarks, userid, depot;
     private Date date;
     private int  id;
     private int cid;
     private int conid;
 
-    public Tracking(String status, String remarks, String userId, String depot, Date date, int id, int cid, int conid) {
+    public Tracking(String status, String remarks, String userid, String depot, Date date, int id, int cid, int conid) {
         this.status = status;
         this.remarks = remarks;
-        this.userId = userId;
+        this.userid = userid;
         this.depot = depot;
         this.date = date;
         this.id = id;
@@ -69,12 +69,12 @@ public class Tracking implements Parcelable{
         this.remarks = remarks;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getUserid() {
+        return userid;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getDepot() {
@@ -97,7 +97,7 @@ public class Tracking implements Parcelable{
         id = in.readInt();
         status = in.readString();
         remarks = in.readString();
-        userId = in.readString();
+        userid = in.readString();
         depot = in.readString();
         date =new Date(in.readLong());
         cid = in.readInt();
@@ -110,7 +110,7 @@ public class Tracking implements Parcelable{
         dest.writeInt(id);
         dest.writeString(status);
         dest.writeString(remarks);
-        dest.writeString(userId);
+        dest.writeString(userid);
         dest.writeString(depot);
         dest.writeLong(date.getTime());
         dest.writeInt(cid);

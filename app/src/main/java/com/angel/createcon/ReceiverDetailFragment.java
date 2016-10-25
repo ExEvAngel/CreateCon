@@ -3,6 +3,7 @@ package com.angel.createcon;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -79,8 +80,8 @@ public class ReceiverDetailFragment extends Fragment {
         recCoNo = (EditText) view.findViewById(R.id.rec_contact_no);
 
         Bundle args = getArguments();
-        if (args.containsKey("CON")) {
-            con = args.getParcelable("CON");
+        if (!args.isEmpty()) {
+            con = args.getParcelable("EDITCON");
             int spinnerPosition = adapter.getPosition(con.getReccountry());
             recCountry.setSelection(spinnerPosition);
             recAcc.setText(con.getRecacc());
@@ -91,8 +92,6 @@ public class ReceiverDetailFragment extends Fragment {
             recCoName.setText(con.getReccontactname());
             recCoNo.setText(con.getReccontactno());
         }
-
-        builder = new AlertDialog.Builder(getActivity());
 
         complete = (Button) view.findViewById(R.id.receiver_complete);
         complete.setOnClickListener(new Button.OnClickListener(){
@@ -110,10 +109,7 @@ public class ReceiverDetailFragment extends Fragment {
                 reccontactno = recCoNo.getText().toString();
 
                 if (recname.equals("")||recaddress.equals("")||reccity.equals("")||recpostcode.equals("")||reccountry.equals("")){
-                    builder.setTitle("Incomplete Fields");
-                    builder.setMessage("Please fill in all the required fields");
-                    builder.show();
-
+                    displayAlert();
                 } else{
                     onCompleteReceiverDetails.recAccId(recacc);
                     onCompleteReceiverDetails.recName(recname);
@@ -130,5 +126,19 @@ public class ReceiverDetailFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    public void displayAlert()
+    {
+        builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Incomplete Fields");
+        builder.setMessage("Please fill in all the required fields");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

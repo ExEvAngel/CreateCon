@@ -11,6 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.angel.createcon.POJO.Tracking;
 import com.angel.createcon.app.AppController;
 import com.angel.createcon.Listeners.GetAllConsListener;
 import com.google.gson.Gson;
@@ -24,6 +25,8 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +122,6 @@ public class BackgroundTask{
                 {
                     @Override
                     public void onResponse(JSONObject response) {
-
                     }
                 },
                 new Response.ErrorListener()
@@ -227,14 +229,21 @@ public class BackgroundTask{
                 .appendPath("api")
                 .appendPath("cons");
         Uri uri = builder.build();
+        Date editdate = Calendar.getInstance().getTime();
+        Tracking unsendTracking = new Tracking("LFE","Consignment data modified","","",editdate,0, consignment.getId(), consignment.getConid());
+        String trackString = gson.toJson(unsendTracking,Tracking.class);
         String json = gson.toJson(consignment);
-        Log.d("EDITCON", json);
+        Log.d("EDITCONTRACK", trackString);
         JSONObject jsonObject = null;
+        JSONObject jsonTracking = null;
         try {
             jsonObject = new JSONObject(json);
+            jsonTracking = new JSONObject(trackString);
+            jsonObject.put("editdate",jsonTracking.get("date"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.d("EDITCON", jsonObject.toString());
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),jsonObject,
                 new Response.Listener<JSONObject>()
                 {

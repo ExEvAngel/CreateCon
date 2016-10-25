@@ -166,9 +166,8 @@ public class PickupDetailActivity extends AppCompatActivity {
             UnsenableOperations unsenableOperations = new UnsenableOperations(PickupDetailActivity.this);
             Tracking unsendTracking = new Tracking("UP",stringBuilder.toString(), pickup.getDriver(),"SYD",pickupDate,0,pickup.getCid(),pickup.getConid());
             unsenableOperations.parkPickupCon(pickup, unsendTracking);
-
-            startActivity(new Intent(PickupDetailActivity.this,MainActivity.class));
         }
+        startActivity(new Intent(PickupDetailActivity.this,MainActivity.class));
     }
     public void cancelPickup(){
         PickupUtil pickupUtil = new PickupUtil(PickupDetailActivity.this);

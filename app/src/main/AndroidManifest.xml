@@ -51,8 +51,10 @@
         <activity
             android:name=".Park.Park"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".Pickup.DriverPickup" />
-        <activity android:name=".Pickup.PickupDetailActivity" />
+        <activity android:name=".Pickup.DriverPickup"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name=".Pickup.PickupDetailActivity"
+            android:parentActivityName=".Pickup.DriverPickup"/>
         <activity android:name=".FileHandler.FileUpload"
             android:parentActivityName=".ConsignmentDetail"></activity>
     </application>

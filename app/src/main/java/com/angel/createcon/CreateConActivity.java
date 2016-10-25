@@ -47,23 +47,35 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
         textView.setText("Senders Details");
 
         SenderDetailFragment senderDetailFragment = new SenderDetailFragment();
-        if(getIntent().hasExtra("CON")){
-            con =  getIntent().getParcelableExtra("CON");
+
+        if(getIntent().hasExtra("EDIT")){
+            con =  getIntent().getParcelableExtra("EDIT");
             gson = new Gson();
             String json = gson.toJson(con);
             Log.d("EDITCON",json);
             newCon=false;
             Bundle args = new Bundle();
-            args.putParcelable("CON", con);
+            args.putParcelable("EDITCON", con);
             senderDetailFragment.setArguments(args);
+            FragmentManager fragmentManager = getFragmentManager();
+            senderDetailFragment.setArguments(args);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_container, senderDetailFragment);
+            fragmentTransaction.commit();
+            Log.d("CREATECON", "EDITCON");
         }
         else{
             newCon=true;
+            Bundle args = new Bundle();
+            Log.d("CREATECON", "NEWCON");
+            FragmentManager fragmentManager = getFragmentManager();
+            senderDetailFragment.setArguments(args);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_container, senderDetailFragment);
+            fragmentTransaction.commit();
         }
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, senderDetailFragment);
-        fragmentTransaction.commit();
+
+
 
     }
 
@@ -123,11 +135,11 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     public void getReceiverDetails() {
         textView.setText("Receivers Details");
         ReceiverDetailFragment receiverDetailFragment = new ReceiverDetailFragment();
+        Bundle args = new Bundle();
         if(!newCon) {
-            Bundle args = new Bundle();
-            args.putParcelable("CON", con);
-            receiverDetailFragment.setArguments(args);
+            args.putParcelable("EDITCON", con);
         }
+        receiverDetailFragment.setArguments(args);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, receiverDetailFragment);
@@ -179,11 +191,11 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     public void getShipmentDetails() {
         textView.setText("Shipping Details");
         ShipmentDetailFragment shipmentDetailFragment = new ShipmentDetailFragment();
+        Bundle args = new Bundle();
         if(!newCon) {
-            Bundle args = new Bundle();
-            args.putParcelable("CON", con);
-            shipmentDetailFragment.setArguments(args);
+            args.putParcelable("EDITCON", con);
         }
+        shipmentDetailFragment.setArguments(args);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, shipmentDetailFragment);
@@ -329,6 +341,7 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
                 service, opt, dg, nopiece, description,  value, currency, email, false,creationdate );
         BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
         backgroundTask.createCon(con);
+        Log.d("CREATESUBMIT","CREATECONSUBMIT");
         backToMain();
 
     }
@@ -367,9 +380,6 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
 
     private void backToMain(){
         Intent intent = new Intent(CreateConActivity.this, MainActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putInt("id", con.getId());
-        intent.putExtras(bundle);
         startActivity(intent);
     }
 }

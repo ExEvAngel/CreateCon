@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -108,8 +109,8 @@ public class ShipmentDetailFragment extends Fragment{
         dgGroup.check(R.id.dg_no);
 
         Bundle args = getArguments();
-        if (args.containsKey("CON")) {
-            con = args.getParcelable("CON");
+        if (!args.isEmpty()) {
+            con = args.getParcelable("EDITCON");
             int spinnerPosition = payAdapter.getPosition(con.getPayterm());
             payTerm.setSelection(spinnerPosition);
             spinnerPosition = serviceAdapter.getPosition(con.getService());
@@ -137,20 +138,18 @@ public class ShipmentDetailFragment extends Fragment{
             public void onClick(View v) {
                 description = desc.getText().toString();
                 String nopiece_string = noPiece.getText().toString();
-                nopiece = Integer.parseInt(nopiece_string);
                 String value_string = Value.getText().toString();
-                value = Double.parseDouble(value_string);
+
                 payterm = payTerm.getSelectedItem().toString();
                 service = Service.getSelectedItem().toString();
                 opt = option.getSelectedItem().toString();
                 currency = Currency.getSelectedItem().toString();
 
                 if (value_string.equals("")||nopiece_string.equals("")|| description.equals("")){
-                    builder.setTitle("Incomplete Fields");
-                    builder.setMessage("Please fill in all the required fields");
-                    builder.show();
-
+                    displayAlert();
                 } else{
+                    nopiece = Integer.parseInt(nopiece_string);
+                    value = Double.parseDouble(value_string);
                     onCompleteShipmentDetails.shipPayTerm(payterm);
                     onCompleteShipmentDetails.shipService(service);
                     onCompleteShipmentDetails.shipOpt(opt);
@@ -164,5 +163,19 @@ public class ShipmentDetailFragment extends Fragment{
             }
         });
         return view;
+    }
+
+    public void displayAlert()
+    {
+        builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Incomplete Fields");
+        builder.setMessage("Please fill in all the required fields");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }

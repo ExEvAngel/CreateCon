@@ -16,11 +16,14 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 public class ConsignmentDetail extends AppCompatActivity {
     Consignment con;
     Gson gson;
     TextView conId, sendacc, sendName, sendAddr, sendCity, sendPc, sendCo, sendContactName,sendContactNo;
+    TextView recAcc, recName, recAddr, recCity, recPc, recCo, recContactName, recContactNo;
+    TextView service, opt, dg, description, noPiece, value,payTerm,custRef;
     Button parkUnpark, track, upload,editCon;
     String cid, conid;
 
@@ -44,21 +47,67 @@ public class ConsignmentDetail extends AppCompatActivity {
                 @Override
                 public void onSuccess(String response) {
                     con = parseResponse(response);
-                    updateUI();
+                    senderDetails();
+                    receiverDetails();
+                    shipmentDetails();
                 }
             });
         }else if(getIntent().hasExtra("CON")){
             con =  getIntent().getParcelableExtra("CON");
-            updateUI();
+            senderDetails();
+            receiverDetails();
+            shipmentDetails();
 
         }
     }
+    public void receiverDetails(){
+        recAcc = (TextView) findViewById(R.id.rec_acc);
+        recName = (TextView) findViewById(R.id.rec_name);
+        recAddr = (TextView) findViewById(R.id.rec_address);
+        recCity = (TextView) findViewById(R.id.rec_city);
+        recPc = (TextView) findViewById(R.id.rec_postcode);
+        recCo = (TextView) findViewById(R.id.rec_country);
+        recContactName = (TextView) findViewById(R.id.rec_contact_name);
+        recContactNo = (TextView) findViewById(R.id.rec_contact_no);
 
-    public void updateUI(){
+        recAcc.setText(con.getRecacc());
+        recName.setText(con.getRecname());
+        recAddr.setText(con.getRecaddress());
+        recCity.setText(con.getReccity());
+        recPc.setText(con.getRecpostcode());
+        recCo.setText(con.getReccountry());
+        recContactName.setText(con.getReccontactname());
+        recContactNo.setText(con.getReccontactno());
+    }
+    public void shipmentDetails(){
+        payTerm = (TextView) findViewById(R.id.pay_term);
+        custRef = (TextView) findViewById(R.id.cust_ref);
+        service = (TextView) findViewById(R.id.service);
+        opt = (TextView) findViewById(R.id.opt);
+        dg = (TextView) findViewById(R.id.dg);
+        description = (TextView) findViewById(R.id.description);
+        noPiece = (TextView) findViewById(R.id.no_piece);
+        value = (TextView) findViewById(R.id.value);
+
+        payTerm.setText(con.getPayterm());
+        custRef.setText(con.getCustref());
+        service.setText(con.getService());
+        opt.setText(con.getOpt());
+        if(con.isDg()){
+            dg.setText("Yes");
+        }else{
+            dg.setText("No");
+        }
+        description.setText(con.getDescription());
+        noPiece.setText(String.valueOf(con.getNopiece()));
+        value.setText(String.valueOf(con.getValue())+" "+con.getCurrency());
+
+    }
+
+    public void senderDetails(){
 
         String json = gson.toJson(con);
         Log.d("DETAILS",json);
-        TextView txt = (TextView) findViewById(R.id.details_con);
 
         conId = (TextView) findViewById(R.id.con_id);
         sendacc = (TextView) findViewById(R.id.send_acc);
@@ -70,14 +119,14 @@ public class ConsignmentDetail extends AppCompatActivity {
         sendContactName = (TextView) findViewById(R.id.send_contact_name);
         sendContactNo = (TextView) findViewById(R.id.send_contact_no);
 
-        String sacc = "Send Acc:"+con.getSendacc();
-        String sname = "Name:"+con.getSendname();
-        String saddr= "Address"+con.getSendaddress();
-        String scity= "City:"+con.getSendcity();
-        String spc = "PostCode:"+con.getSendpostcode();
-        String sco= "Country"+con.getSendcountry();
-        String sconame= "Name:"+con.getSendcontactname();
-        String scono= "ContactNo:"+con.getSendcontactno();
+        String sacc = con.getSendacc();
+        String sname = con.getSendname();
+        String saddr= con.getSendaddress();
+        String scity= con.getSendcity();
+        String spc = con.getSendpostcode();
+        String sco= con.getSendcountry();
+        String sconame= con.getSendcontactname();
+        String scono= con.getSendcontactno();
 
         sendacc.setText(sacc);
         conId.setText(String.valueOf(con.getConid()));
@@ -94,7 +143,7 @@ public class ConsignmentDetail extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ConsignmentDetail.this, CreateConActivity.class);
-                intent.putExtra("CON",con);
+                intent.putExtra("EDIT",con);
                 String json = gson.toJson(con);
                 Log.d("CON2TRACK",json);
                 startActivity(intent);
