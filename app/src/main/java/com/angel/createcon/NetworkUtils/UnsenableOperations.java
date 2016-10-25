@@ -62,9 +62,22 @@ public class UnsenableOperations{
                 .appendPath(String.valueOf(consignment.getId()))
                 .appendPath("park");
         Uri uri = builder.build();
+
+        String json = gson.toJson(consignment);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(json);
+            jsonObject.put("cid", consignment.getId());
+            jsonObject.put("conid",consignment.getConid());
+            jsonObject.put("userid",consignment.getUserid());
+            jsonObject.put("remarks",tracking.getRemarks());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("park.jsonob", jsonObject.toString());
         Log.d("PARKCON.URI", uri.toString());
         //Log.d("PARKCON.JSONOBJ", parkDetails.toString());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),null,
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),jsonObject,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -107,7 +120,19 @@ public class UnsenableOperations{
                 .appendPath("unpark");
         Uri uri = builder.build();
         Log.d("UNPARK.URI", uri.toString());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),null,
+        String json = gson.toJson(consignment);
+        Log.d("unparkcon.jsonob", json.toString());
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(json);
+            jsonObject.put("cid", consignment.getId());
+            jsonObject.put("conid",consignment.getConid());
+            jsonObject.put("userid",consignment.getUserid());
+            jsonObject.put("remarks",tracking.getRemarks());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),jsonObject,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -146,8 +171,19 @@ public class UnsenableOperations{
                 .appendPath(String.valueOf(pickup.getCid()))
                 .appendPath("park");
         Uri uri = builder.build();
-        Log.d("UNPARK.URI", uri.toString());
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),null,
+        String json = gson.toJson(pickup);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(json);
+            jsonObject.put("cid", pickup.getCid());
+            jsonObject.put("conid",pickup.getConid());
+            jsonObject.put("userid", tracking.getUserid());
+            jsonObject.put("remarks", tracking.getRemarks());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("park.jsonob", jsonObject.toString());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, uri.toString(),jsonObject,
                 new Response.Listener<JSONObject>()
                 {
                     @Override

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.stormpath.sdk.Stormpath;
 import com.stormpath.sdk.StormpathCallback;
 import com.stormpath.sdk.models.StormpathError;
@@ -30,12 +31,12 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     String sendacc, sendname, sendaddress, sendcity, sendpostcode, sendcountry, sendcontactname, sendcontactno;
     String recacc, recname, recaddress, reccity, recpostcode, reccountry, reccontactname, reccontactno;
     String getUserid;
-    boolean dg, parked;
+    boolean dg, parked, newCon;
     Date creationdate;
     TextView textView;
     Button btn;
     Consignment con;
-
+    Gson gson;
 
 
     @Override
@@ -46,10 +47,36 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
         textView.setText("Senders Details");
 
         SenderDetailFragment senderDetailFragment = new SenderDetailFragment();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, senderDetailFragment);
-        fragmentTransaction.commit();
+
+        if(getIntent().hasExtra("EDIT")){
+            con =  getIntent().getParcelableExtra("EDIT");
+            gson = new Gson();
+            String json = gson.toJson(con);
+            Log.d("EDITCON",json);
+            newCon=false;
+            Bundle args = new Bundle();
+            args.putParcelable("EDITCON", con);
+            senderDetailFragment.setArguments(args);
+            FragmentManager fragmentManager = getFragmentManager();
+            senderDetailFragment.setArguments(args);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_container, senderDetailFragment);
+            fragmentTransaction.commit();
+            Log.d("CREATECON", "EDITCON");
+        }
+        else{
+            newCon=true;
+            Bundle args = new Bundle();
+            Log.d("CREATECON", "NEWCON");
+            FragmentManager fragmentManager = getFragmentManager();
+            senderDetailFragment.setArguments(args);
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.fragment_container, senderDetailFragment);
+            fragmentTransaction.commit();
+        }
+
+
+
     }
 
 
@@ -108,12 +135,16 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     public void getReceiverDetails() {
         textView.setText("Receivers Details");
         ReceiverDetailFragment receiverDetailFragment = new ReceiverDetailFragment();
+        Bundle args = new Bundle();
+        if(!newCon) {
+            args.putParcelable("EDITCON", con);
+        }
+        receiverDetailFragment.setArguments(args);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, receiverDetailFragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-
     }
 
     @Override
@@ -160,6 +191,11 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
     public void getShipmentDetails() {
         textView.setText("Shipping Details");
         ShipmentDetailFragment shipmentDetailFragment = new ShipmentDetailFragment();
+        Bundle args = new Bundle();
+        if(!newCon) {
+            args.putParcelable("EDITCON", con);
+        }
+        shipmentDetailFragment.setArguments(args);
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, shipmentDetailFragment);
@@ -213,7 +249,11 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
         Stormpath.getUserProfile(new StormpathCallback<UserProfile>() {
             @Override
             public void onSuccess(UserProfile userProfile) {
-                createCon(userProfile.getEmail());
+                if(newCon) {
+                    createCon(userProfile.getEmail());
+                }else{
+                    editCon();
+                }
             }
 
             @Override
@@ -301,9 +341,45 @@ public class CreateConActivity extends AppCompatActivity implements SenderDetail
                 service, opt, dg, nopiece, description,  value, currency, email, false,creationdate );
         BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
         backgroundTask.createCon(con);
+        Log.d("CREATESUBMIT","CREATECONSUBMIT");
+        backToMain();
 
+    }
+
+    private void editCon(){
+        con.setConid(conid);
+        con.setNopiece(nopiece);
+        con.setValue(value);
+        con.setPayterm(payterm);
+        con.setCustref(custref);
+        con.setService(service);
+        con.setOpt(opt);
+        con.setDescription(description);
+        con.setCurrency(currency);
+        con.setSendacc(sendacc);
+        con.setSendname(sendname);
+        con.setSendaddress(sendaddress);
+        con.setSendcity(sendcity);
+        con.setSendpostcode(sendpostcode);
+        con.setSendcountry(sendcountry);
+        con.setSendcontactname(sendcontactname);
+        con.setSendcontactno(sendcontactno);
+        con.setRecacc(recacc);
+        con.setRecname(recname);
+        con.setRecaddress(recaddress);
+        con.setReccity(reccity);
+        con.setRecpostcode(recpostcode);
+        con.setReccountry(reccountry);
+        con.setReccontactname(reccontactname);
+        con.setReccontactno(reccontactno);
+        con.setDg(dg);
+        BackgroundTask backgroundTask = new BackgroundTask(CreateConActivity.this);
+        backgroundTask.editCon(con);
+        backToMain();
+    }
+
+    private void backToMain(){
         Intent intent = new Intent(CreateConActivity.this, MainActivity.class);
-        intent.putExtra("NEW_CON",con);
         startActivity(intent);
     }
 }

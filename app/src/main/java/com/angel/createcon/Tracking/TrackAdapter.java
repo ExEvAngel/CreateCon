@@ -51,7 +51,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.MyViewHolder
             holder.status.setText(arrayList.get(position).getStatus());
             holder.date.setText(arrayList.get(position).getDate().toString());
             holder.depot.setText(arrayList.get(position).getDepot());
-            holder.username.setText(arrayList.get(position).getUserId());
+            holder.username.setText(arrayList.get(position).getUserid());
             holder.remarks.setText(arrayList.get(position).getRemarks());
         }
 
@@ -83,7 +83,7 @@ public class TrackAdapter extends RecyclerView.Adapter<TrackAdapter.MyViewHolder
             @Override
             public void onClick(View v) {
                 int position =getAdapterPosition();
-                Toast.makeText(context, "ItemPosition:"+position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "ItemPosition:"+position, Toast.LENGTH_SHORT).show();
                 /*Consignment consignment = this.consignments.get(position);
                 Intent intent = new Intent(this.ctx, ConsignmentDetail.class);
                 Log.d("ITEM",String.valueOf(consignment.getConid()));

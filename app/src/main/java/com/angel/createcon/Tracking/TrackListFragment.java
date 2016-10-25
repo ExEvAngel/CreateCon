@@ -130,7 +130,7 @@ public class TrackListFragment extends Fragment{
             txt_track.setText("Tracking");
             String jsonArray = gson.toJson(tracking, new TypeToken<ArrayList<Tracking>>() {
             }.getType());
-            Log.d("UPDATE", "back2Json: " + jsonArray);
+            Log.d("UPDATETRACKUI", "back2Json: " + jsonArray);
             Log.d("UPDATE", "tracksize: " + tracking.size());
             if (adapter == null) {
                 adapter = new TrackAdapter(tracking, getActivity().getApplicationContext());

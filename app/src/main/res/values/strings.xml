@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Freight App</string>
-
     <string name="action_logout">Logout</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
@@ -13,8 +12,8 @@
     <string name="track">Track</string>
 
     <string name="conId">Consignment No</string>
-    <string name="payterm">Sender or Receiver</string>
-    <string name="custRef">Customer Reference</string>
+    <string name="payterm">PayTerms</string>
+    <string name="custRef">Cust Ref</string>
     <string name="sendAcc">Sender Account</string>
     <string name="sendName">Sender Name</string>
     <string name="sendAddress">Sender Address</string>
@@ -78,6 +77,15 @@
     <string name="dgDec_yes">Yes</string>
     <string name="dgDec_no">No</string>
     <string name="get_parkCons">Get Parked Cons</string>
+    <string name="upload_doc">Upload Documents</string>
+    <string name="upload">Upload</string>
+    <string name="upload_heading">Upload Image</string>
+    <string name="file_name">File Name</string>
+    <string name="edit_con">Edit Consignment</string>
+    <string name="download">Download</string>
+    <string name="connumber">Con Number</string>
+    <string name="sender_details">Sender Details</string>
+    <string name="status">Status</string>
 
 
     <string-array name="pay_term">
